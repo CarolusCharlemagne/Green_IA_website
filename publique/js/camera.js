@@ -1,38 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const videoElement = document.getElementById('barcode-scanner'); 
+  const videoElement = document.getElementById('barcode-scanner'); 
+  let isScanning = false;
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-      .then(function(stream) {
-        videoElement.srcObject = stream;
-        videoElement.play();
+  videoElement.setAttribute('controls', 'false');
+  videoElement.setAttribute('playsinline', 'true');
+  videoElement.setAttribute('webkit-playsinline', 'true');
+  videoElement.setAttribute('disablePictureInPicture', 'true');
+  videoElement.style.objectFit = 'cover'; 
 
-        Quagga.init({
-          inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: videoElement, 
-            constraints: {
-              facingMode: "environment"
-            },
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+    .then(function(stream) {
+      videoElement.srcObject = stream;
+      videoElement.play();
+
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: videoElement,
+          constraints: {
+            facingMode: "environment"
           },
-          decoder: {
-            readers: ['ean_reader']
-          }
-        }, function(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          Quagga.start();
-        });
+        },
+        decoder: {
+          readers: ['ean_reader']
+        }
+      }, function(err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        Quagga.start();
+      });
 
-        Quagga.onDetected(function(barcodeScanner) {
-          Quagga.stop();
-          stream.getTracks().forEach(track => track.stop());
+      Quagga.onDetected(function(barcodeScanner) {
+        if (isScanning) return;
+        isScanning = true;
 
-          const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcodeScanner.codeResult.code}.json`;
+        const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcodeScanner.codeResult.code}.json`;
 
-          fetch(openFoodFactsApiUrl)
+        fetch(openFoodFactsApiUrl)
           .then(response => response.json())
           .then(data => {
             console.log('Données Open Food Facts :', data);
@@ -42,15 +49,17 @@ document.addEventListener('DOMContentLoaded', function() {
             let countryOfOrigin = productData.countries || 'Non disponible';
 
             let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
-            document.getElementById('result').innerText = displayText;
+            document.getElementById('result').innerText += '\n\n' + displayText;
           })
           .catch(error => {
             console.error('Erreur lors de la requête à Open Food Facts :', error);
+          })
+          .finally(() => {
+            setTimeout(() => { isScanning = false; }, 2000);
           });
-        
-        });
-      })
-      .catch(function(error) {
-        console.error('Erreur lors de l\'accès à la caméra :', error);
       });
+    })
+    .catch(function(error) {
+      console.error('Erreur lors de l\'accès à la caméra :', error);
+    });
 });
