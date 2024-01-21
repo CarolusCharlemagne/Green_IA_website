@@ -21,13 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
     video: { 
       facingMode: 'environment',
       width: { ideal: 1280 },
-      height: { ideal: 720 },
-      advanced: [{ torch: true }] 
+      height: { ideal: 720 }
     }
   })
   .then(function(stream) {
     videoElement.srcObject = stream;
     videoElement.play();
+
+    // Tenter d'activer la torche
+    const track = stream.getVideoTracks()[0];
+    const capabilities = track.getCapabilities();
+    if (capabilities.torch) {
+      track.applyConstraints({
+        advanced: [{ torch: true }]
+      });
+    }
 
     Quagga.init({
       inputStream: {
