@@ -10,6 +10,10 @@ html
     font-family: 'Noto Sans JP', sans-serif;
 }
 
+.im_here_for_space {
+    min-height: 100px;
+}
+
 
 /* CONTENU DE LA PAGE PRINCIPALE */
 .scan_products video {
@@ -21,6 +25,14 @@ html
 }
 #barcode-scanner::-webkit-media-controls {
     display: none !important;
+}
+#result {
+    margin: 2% 2% 2% 10%;
+    width: 80%; 
+    height: 20%;
+    border-radius: 0.4em;
+    border: 1px solid rgb(109, 141, 43);
+    background-color: #d9d9d9;
 }
   
 

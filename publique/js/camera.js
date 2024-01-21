@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
           let countryOfOrigin = productData.countries || 'Non disponible';
 
           let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
-          document.getElementById('result').innerText += '\n\n' + displayText;
+          document.getElementById('result').innerText = displayText;
         })
         .catch(error => {
           console.error('Erreur lors de la requête à Open Food Facts :', error);
