@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const videoElement = document.getElementById('barcode-scanner'); 
+  const videoElement = document.getElementById('barcode-scanner');
   let isScanning = false;
 
   videoElement.setAttribute('playsinline', 'true');
   videoElement.setAttribute('webkit-playsinline', 'true');
   videoElement.setAttribute('disablePictureInPicture', 'true');
-  videoElement.style.objectFit = 'cover'; 
+  videoElement.style.objectFit = 'cover';
 
   videoElement.addEventListener('play', function(e) {
     e.preventDefault();
@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
   });
 
-  navigator.mediaDevices.getUserMedia({ 
-    video: { 
+  navigator.mediaDevices.getUserMedia({
+    video: {
       facingMode: 'environment',
       width: { ideal: 1280 },
       height: { ideal: 720 }
@@ -28,13 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
     videoElement.srcObject = stream;
     videoElement.play();
 
-    // Tenter d'activer la torche
     const track = stream.getVideoTracks()[0];
-    const capabilities = track.getCapabilities();
-    if (capabilities.torch) {
-      track.applyConstraints({
-        advanced: [{ torch: true }]
-      });
+    
+    if (track && track.getCapabilities) { // Vérifier la disponibilité de getCapabilities
+      const capabilities = track.getCapabilities();
+      if (capabilities.torch) {
+        track.applyConstraints({
+          advanced: [{ torch: true }]
+        });
+      }
     }
 
     Quagga.init({
