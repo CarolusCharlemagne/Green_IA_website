@@ -1,21 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
   const videoElement = document.getElementById('barcode-scanner');
+  const resultElement = document.getElementById('result');
   let isScanning = false;
+
+  // Sauvegarde des fonctions console originales
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+  // Surcharge de console.log
+  console.log = function(...messages) {
+    originalConsoleLog(...messages);
+    resultElement.innerText += messages.join(' ') + '\n';
+    resultElement.classList.add('blink-bg'); // Ajoute un effet de clignotement
+    setTimeout(() => {
+      resultElement.classList.remove('blink-bg'); // Supprime le clignotement après 1 seconde
+    }, 1000);
+  };
+
+  // Surcharge de console.error
+  console.error = function(...messages) {
+    originalConsoleError(...messages);
+    resultElement.innerText += 'Erreur : ' + messages.join(' ') + '\n';
+    resultElement.style.backgroundColor = 'lightcoral'; // Change la couleur de fond pour les erreurs
+  };
 
   videoElement.setAttribute('playsinline', 'true');
   videoElement.setAttribute('webkit-playsinline', 'true');
   videoElement.setAttribute('disablePictureInPicture', 'true');
   videoElement.style.objectFit = 'cover';
-
-  videoElement.addEventListener('play', function(e) {
-    e.preventDefault();
-  });
-  videoElement.addEventListener('pause', function(e) {
-    e.preventDefault();
-  });
-  videoElement.addEventListener('volumechange', function(e) {
-    e.preventDefault();
-  });
 
   navigator.mediaDevices.getUserMedia({
     video: {
@@ -27,10 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
   .then(function(stream) {
     videoElement.srcObject = stream;
     videoElement.play();
-
     const track = stream.getVideoTracks()[0];
-    
-    if (track && track.getCapabilities) { // Vérifier la disponibilité de getCapabilities
+    if (track && track.getCapabilities) {
       const capabilities = track.getCapabilities();
       if (capabilities.torch) {
         track.applyConstraints({
@@ -71,11 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
           console.log('Données Open Food Facts :', data);
-
           let productData = data.product;
           let ecoscore = productData.ecoscore_score || 'Non disponible';
           let countryOfOrigin = productData.countries || 'Non disponible';
-
           let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
           document.getElementById('result').innerText = displayText;
         })
