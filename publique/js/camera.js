@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     videoElement.setAttribute('disablePictureInPicture', 'true');
     videoElement.style.objectFit = 'cover';
 
-    // Vérification de l'autorisation précédemment accordée
     if (!localStorage.getItem('cameraPermissionGranted')) {
         requestCameraAccess();
     } else {
@@ -48,13 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra :', error);
-            // Gérer le refus d'accès ici
         });
     }
 
     function setupCamera(stream) {
         if (!stream) {
-            // Si la fonction est appelée directement après le rechargement de la page
             navigator.mediaDevices.getUserMedia({
                 video: {
                     facingMode: 'environment',
@@ -117,10 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     console.log('Données Open Food Facts :', data);
                     let productData = data.product;
+                    let productName = productData.product_name || 'Nom non disponible';
                     let ecoscore = productData.ecoscore_score || 'Non disponible';
                     let countryOfOrigin = productData.countries || 'Non disponible';
-                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
+                    let imageUrl = productData.image_url || '';
+
+                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit : ${productName}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
                     resultElement.innerText = displayText;
+
+                    if (imageUrl) {
+                        let imageElement = document.createElement('img');
+                        imageElement.src = imageUrl;
+                        imageElement.style.maxWidth = '100%'; 
+                        resultElement.appendChild(imageElement);
+                    }
                 })
                 .catch(error => {
                     console.error('Erreur lors de la requête à Open Food Facts :', error);
