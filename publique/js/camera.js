@@ -27,17 +27,53 @@ document.addEventListener('DOMContentLoaded', function() {
     videoElement.setAttribute('disablePictureInPicture', 'true');
     videoElement.style.objectFit = 'cover';
 
-    navigator.mediaDevices.getUserMedia({
-        video: {
-            facingMode: 'environment',
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-        }
-    })
-    .then(function(stream) {
-        videoElement.srcObject = stream;
-        videoElement.play();
+    // Vérification de l'autorisation précédemment accordée
+    if (!localStorage.getItem('cameraPermissionGranted')) {
+        requestCameraAccess();
+    } else {
+        setupCamera();
+    }
 
+    function requestCameraAccess() {
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: 'environment',
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            }
+        })
+        .then(function(stream) {
+            localStorage.setItem('cameraPermissionGranted', 'true');
+            setupCamera(stream);
+        })
+        .catch(function(error) {
+            console.error('Erreur lors de l\'accès à la caméra :', error);
+            // Gérer le refus d'accès ici
+        });
+    }
+
+    function setupCamera(stream) {
+        if (!stream) {
+            // Si la fonction est appelée directement après le rechargement de la page
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            }).then(function(stream) {
+                videoElement.srcObject = stream;
+                videoElement.play();
+                initiateScanner(stream);
+            });
+        } else {
+            videoElement.srcObject = stream;
+            videoElement.play();
+            initiateScanner(stream);
+        }
+    }
+
+    function initiateScanner(stream) {
         const track = stream.getVideoTracks()[0];
         if (track && track.getCapabilities) {
             const capabilities = track.getCapabilities();
@@ -97,8 +133,5 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(() => { isScanning = false; }, 2000);
                 });
         });
-    })
-    .catch(function(error) {
-        console.error('Erreur lors de l\'accès à la caméra :', error);
-    });
+    }
 });
