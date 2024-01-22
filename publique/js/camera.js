@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
-    const resultElement = document.getElementById('result');
+    const textResultElement = document.getElementById('text_result');
+    const imgResultElement = document.getElementById('img_result');
     let isScanning = false;
 
     const originalConsoleLog = console.log;
@@ -8,18 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log = function(...messages) {
         originalConsoleLog(...messages);
-        resultElement.innerText = messages.join(' ') + '\n'; 
-        resultElement.classList.add('blink-bg');
-        resultElement.style.backgroundColor = ''; 
+        textResultElement.innerText = messages.join(' ') + '\n'; 
+        textResultElement.classList.add('blink-bg');
+        textResultElement.style.backgroundColor = ''; 
         setTimeout(() => {
-            resultElement.classList.remove('blink-bg');
+            textResultElement.classList.remove('blink-bg');
         }, 1000);
     };
 
     console.error = function(...messages) {
         originalConsoleError(...messages);
-        resultElement.innerText = 'Erreur : ' + messages.join(' ') + '\n';
-        resultElement.style.backgroundColor = 'lightcoral';
+        textResultElement.innerText = 'Erreur : ' + messages.join(' ') + '\n';
+        textResultElement.style.backgroundColor = 'lightcoral';
     };
 
     videoElement.setAttribute('playsinline', 'true');
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
             },
             decoder: {
-                readers: ['ean_reader']
+                readers: ['ean_reader'] 
             }
         }, function(err) {
             if (err) {
@@ -120,21 +121,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     let imageUrl = productData.image_url || '';
 
                     let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit : ${productName}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
-                    resultElement.innerText = displayText;
+                    textResultElement.innerText = displayText;
 
+                    imgResultElement.innerHTML = '';
                     if (imageUrl) {
                         let imageElement = document.createElement('img');
                         imageElement.src = imageUrl;
-                        imageElement.style.maxWidth = '100%'; 
-                        resultElement.appendChild(imageElement);
+                        imageElement.style.maxWidth = '100%';
+                        imgResultElement.appendChild(imageElement);
                     }
                 })
                 .catch(error => {
                     console.error('Erreur lors de la requête à Open Food Facts :', error);
-                    resultElement.classList.add('blink-bg-red'); 
-                    setTimeout(() => {
-                        resultElement.classList.remove('blink-bg-red'); 
-                    }, 1000);
+                    textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
+                    imgResultElement.innerHTML = '';
                 })
                 .finally(() => {
                     setTimeout(() => { isScanning = false; }, 2000);

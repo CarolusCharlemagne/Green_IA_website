@@ -9,7 +9,6 @@ html
     padding: 0;
     font-family: 'Noto Sans JP', sans-serif;
 }
-
 .im_here_for_space {
     min-height: 100px;
 }
@@ -26,7 +25,7 @@ html
     width: 80%; 
 }
 #search_input {
-    width: 80%;
+    width: 70%;
     border-radius: 0.4em;
     border: solid 1px rgb(15, 87, 108);
     background-color: #d9d9d9;
@@ -47,20 +46,20 @@ html
 #barcode-scanner::-webkit-media-controls {
     display: none !important;
 }
-#result {
-    margin: 2% 2% 2% 10%;
-    width: 80%; 
-    height: 20%;
+#text_result, #img_result {
+    flex: 1;
+    margin: 0.2%;
     border-radius: 0.4em;
     border: 1px solid rgb(15, 87, 108);
     background-color: #d9d9d9;
+    display: flex;        
+    justify-content: space-between;        
 }
 @keyframes blink {
     0% { background-color: #d9d9d9; }
     50% { background-color: rgb(15, 87, 108, 0.7); }
     100% { background-color: #d9d9d9; }
 }
-
 .blink-bg {
 animation: blink 1s linear;
 }  
@@ -71,8 +70,13 @@ animation: blink 1s linear;
 .blink-bg-red {
     animation: blink-red 1s linear;
 }
-
-
+.result {
+    display: flex;
+    justify-content: space-between;
+    margin: 1% 2% 2% 10%;
+    width: 80%; 
+    height: 20%;
+}
 
 
 
