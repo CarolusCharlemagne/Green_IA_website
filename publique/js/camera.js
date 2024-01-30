@@ -123,7 +123,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     let countryOfOrigin = productData.countries || '';
                     let imageUrl = productData.image_url || '';
 
-                    let displayText = `${productName}\n${brandName}\n${ecoscoreScore}\n${ecoscoreGrade}\norigine: ${countryOfOrigin}`;
+                    let displayParts = [];
+                    if (productName) displayParts.push(productName);
+                    if (brandName) displayParts.push(brandName);
+                    if (ecoscoreScore) displayParts.push(ecoscoreScore);
+                    if (ecoscoreGrade) displayParts.push(ecoscoreGrade);
+                    if (countryOfOrigin) displayParts.push('origine: ' + countryOfOrigin);
+
+                    let displayText = displayParts.join('\n');
                     textResultElement.innerText = displayText;
 
                     imgResultElement.innerHTML = '';
