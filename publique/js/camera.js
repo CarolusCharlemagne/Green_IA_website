@@ -115,18 +115,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     console.log('Données Open Food Facts :', data);
                     let productData = data.product;
+
                     let productName = productData.product_name || 'Nom non disponible';
-                    let ecoscore = productData.ecoscore_score || 'Non disponible';
+                    let brandName = productData.brands || 'Marque non disponible';
+                    let ecoscoreScore = productData.ecoscore_score || 'Non disponible';
+                    let ecoscoreGrade = productData.ecoscore_grade || 'Non disponible';
+                    let pnnsGroup1 = productData.pnns_groups_1 || 'Non disponible';
                     let countryOfOrigin = productData.countries || 'Non disponible';
                     let imageUrl = productData.image_url || '';
 
-                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit : ${productName}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
+                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit : ${productName}\nMarque : ${brandName}\nEcoscore - Score: ${ecoscoreScore}, Grade: ${ecoscoreGrade}\nGroupe PNNS: ${pnnsGroup1}\nPays de provenance: ${countryOfOrigin}`;
                     textResultElement.innerText = displayText;
 
                     imgResultElement.innerHTML = '';
                     if (imageUrl) {
                         let imageElement = document.createElement('img');
                         imageElement.src = imageUrl;
+                        imageElement.alt = `Image de ${productName}`;
                         imageElement.style.maxWidth = '100%';
                         imgResultElement.appendChild(imageElement);
                     }

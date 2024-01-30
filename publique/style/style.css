@@ -76,6 +76,8 @@ animation: blink 1s linear;
     margin: 1% 2% 2% 10%;
     width: 80%; 
     height: 20%;
+    background-color: lightblue;
+    border: 1px red linear;
 }
 
 
