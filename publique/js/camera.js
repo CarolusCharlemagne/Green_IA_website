@@ -120,11 +120,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     let brandName = productData.brands || 'Marque non disponible';
                     let ecoscoreScore = productData.ecoscore_score || 'Non disponible';
                     let ecoscoreGrade = productData.ecoscore_grade || 'Non disponible';
-                    let pnnsGroup1 = productData.pnns_groups_1 || 'Non disponible';
                     let countryOfOrigin = productData.countries || 'Non disponible';
                     let imageUrl = productData.image_url || '';
 
-                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit : ${productName}\nMarque : ${brandName}\nEcoscore - Score: ${ecoscoreScore}, Grade: ${ecoscoreGrade}\nGroupe PNNS: ${pnnsGroup1}\nPays de provenance: ${countryOfOrigin}`;
+                    let displayText = `Nom du produit : ${productName}\nMarque : ${brandName}\nEcoscore - Score: ${ecoscoreScore}, Grade: ${ecoscoreGrade}\nPays de provenance: ${countryOfOrigin}`;
                     textResultElement.innerText = displayText;
 
                     imgResultElement.innerHTML = '';
