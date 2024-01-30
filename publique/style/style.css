@@ -46,15 +46,6 @@ html
 #barcode-scanner::-webkit-media-controls {
     display: none !important;
 }
-#text_result, #img_result {
-    flex: 1;
-    margin: 0.2%;
-    border-radius: 0.4em;
-    border: 1px solid rgb(15, 87, 108);
-    background-color: #d9d9d9;
-    display: flex;        
-    justify-content: space-between;        
-}
 @keyframes blink {
     0% { background-color: #d9d9d9; }
     50% { background-color: rgb(15, 87, 108, 0.7); }
@@ -79,8 +70,24 @@ animation: blink 1s linear;
     background-color: lightblue;
     border: 1px red linear;
 }
-
-
+#text_result {
+    flex: 3; 
+    margin: 0.2%;
+    border-radius: 0.4em;
+    border: 1px solid rgb(15, 87, 108);
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: space-between;
+}
+#img_result {
+    flex: 1; 
+    margin: 0.2%;
+    border-radius: 0.4em;
+    border: 1px solid rgb(15, 87, 108);
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: space-between;
+}
 
 
 /* NAV BAR */
