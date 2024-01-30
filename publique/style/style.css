@@ -73,6 +73,9 @@ animation: blink 1s linear;
     margin: 1% 2% 2% 10%;
     width: 80%; 
     height: 23%;
+    border: 1px rgb(109, 141, 43) linear;
+    background-color: #d9d9d9;
+    border-radius: 0.4em;
 }
 #text_result {
     flex: 3; 
@@ -88,6 +91,7 @@ animation: blink 1s linear;
     border-radius: 0.4em;
     justify-content: space-between;
 }
+
 
 
 /* NAV BAR */
