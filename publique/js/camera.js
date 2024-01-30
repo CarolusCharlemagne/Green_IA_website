@@ -130,8 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (imageUrl) {
                         let imageElement = document.createElement('img');
                         imageElement.src = imageUrl;
-                        imageElement.alt = ``;
+                        imageElement.alt = 'Product Image';
                         imageElement.style.maxWidth = '100%';
+                        imageElement.style.height = 'auto';
+                        imageElement.style.objectFit = 'contain';
                         imgResultElement.appendChild(imageElement);
                     }
                 })
