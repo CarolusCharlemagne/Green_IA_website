@@ -9,7 +9,13 @@ html
     padding: 0;
     font-family: 'Noto Sans JP', sans-serif;
 }
-.im_here_for_space {
+.big_space {
+    min-height: 130px;
+}
+.medium_space {
+    min-height: 80px;
+}
+.min_space {
     min-height: 30px;
 }
 
