@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
+    const resultElement = document.getElementById('text_result');
     const imgResultElement = document.getElementById('img_result');
     let isScanning = false;
 
@@ -10,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log = function(...messages) {
         originalConsoleLog(...messages);
         textResultElement.innerText = messages.join(' ') + '\n'; 
-        textResultElement.classList.add('blink-bg');
+        resultElement.classList.add('blink-bg');
         textResultElement.style.backgroundColor = ''; 
         setTimeout(() => {
-            textResultElement.classList.remove('blink-bg');
+            resultElement.classList.remove('blink-bg');
         }, 1000);
     };
 
