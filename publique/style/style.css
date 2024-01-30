@@ -79,6 +79,7 @@ animation: blink 1s linear;
     margin: 0.2%;
     display: flex;
     justify-content: space-between;
+    border-radius: 0.4em;
 }
 #img_result {
     flex: 1; 
