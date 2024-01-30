@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     let countryOfOrigin = productData.countries || '';
                     let imageUrl = productData.image_url || '';
 
-                    let displayText = `${productName}\n${brandName}\n${ecoscoreScore}\n${ecoscoreGrade}\n origine: ${countryOfOrigin}`;
+                    let displayText = `${productName}\n${brandName}\n${ecoscoreScore}\n${ecoscoreGrade}\norigine: ${countryOfOrigin}`;
                     textResultElement.innerText = displayText;
 
                     imgResultElement.innerHTML = '';
