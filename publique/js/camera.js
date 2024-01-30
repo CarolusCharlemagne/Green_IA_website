@@ -116,28 +116,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('Données Open Food Facts :', data);
                     let productData = data.product;
 
-                    let productName = productData.product_name || 'Nom non disponible';
-                    let brandName = productData.brands || 'Marque non disponible';
-                    let ecoscoreScore = productData.ecoscore_score || 'Non disponible';
-                    let ecoscoreGrade = productData.ecoscore_grade || 'Non disponible';
-                    let countryOfOrigin = productData.countries || 'Non disponible';
+                    let productName = productData.product_name || '';
+                    let brandName = productData.brands || '';
+                    let ecoscoreScore = productData.ecoscore_score || '';
+                    let ecoscoreGrade = productData.ecoscore_grade || '';
+                    let countryOfOrigin = productData.countries || '';
                     let imageUrl = productData.image_url || '';
 
-                    let displayText = `Nom du produit : ${productName}\nMarque : ${brandName}\nEcoscore - Score: ${ecoscoreScore}, Grade: ${ecoscoreGrade}\nPays de provenance: ${countryOfOrigin}`;
+                    let displayText = `${productName}\n${brandName}\n${ecoscoreScore},${ecoscoreGrade}\n${countryOfOrigin}`;
                     textResultElement.innerText = displayText;
 
                     imgResultElement.innerHTML = '';
                     if (imageUrl) {
                         let imageElement = document.createElement('img');
                         imageElement.src = imageUrl;
-                        imageElement.alt = `Image de ${productName}`;
+                        imageElement.alt = ``;
                         imageElement.style.maxWidth = '100%';
                         imgResultElement.appendChild(imageElement);
                     }
                 })
                 .catch(error => {
                     console.error('Erreur lors de la requête à Open Food Facts :', error);
-                    textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
+                    textResultElement.innerText = 'Aucun produit trouvé !';
                     imgResultElement.innerHTML = '';
                 })
                 .finally(() => {
