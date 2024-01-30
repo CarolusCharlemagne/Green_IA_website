@@ -84,6 +84,7 @@ animation: blink 1s linear;
     flex: 1; 
     margin: 0.2%;
     display: flex;
+    border-radius: 0.4em;
     justify-content: space-between;
 }
 
