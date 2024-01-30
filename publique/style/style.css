@@ -10,7 +10,7 @@ html
     font-family: 'Noto Sans JP', sans-serif;
 }
 .im_here_for_space {
-    min-height: 100px;
+    min-height: 30px;
 }
 
 
@@ -66,25 +66,18 @@ animation: blink 1s linear;
     justify-content: space-between;
     margin: 1% 2% 2% 10%;
     width: 80%; 
-    height: 30%;
-    background-color: lightblue;
-    border: 1px red linear;
+    height: 23%;
 }
 #text_result {
     flex: 3; 
     margin: 0.2%;
-    border-radius: 0.4em;
     border: 1px solid rgb(15, 87, 108);
-    background-color: #d9d9d9;
     display: flex;
     justify-content: space-between;
 }
 #img_result {
     flex: 1; 
     margin: 0.2%;
-    border-radius: 0.4em;
-    border: 1px solid rgb(15, 87, 108);
-    background-color: #d9d9d9;
     display: flex;
     justify-content: space-between;
 }
