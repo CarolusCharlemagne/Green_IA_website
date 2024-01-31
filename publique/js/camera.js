@@ -67,13 +67,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 videoElement.srcObject = stream;
                 videoElement.play();
                 track = stream.getVideoTracks()[0];
-                initiateScanner();
+                initiateScanner(stream);
             });
         } else {
             videoElement.srcObject = stream;
             videoElement.play();
             track = stream.getVideoTracks()[0];
-            initiateScanner();
+            initiateScanner(stream);
         }
     }
 
@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleFlashButton.addEventListener('click', () => {
         toggleFlash();
         if (isFlashEnabled) {
-            toggleFlashButton.textContent = 'Désactiver le Flash';
+            toggleFlashButton.textContent = 'flash on';
         } else {
-            toggleFlashButton.textContent = 'Activer le Flash';
+            toggleFlashButton.textContent = 'flash off';
         }
     });
 
