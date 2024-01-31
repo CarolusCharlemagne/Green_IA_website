@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const textResultElement = document.getElementById('text_result');
     const resultElement = document.getElementById('text_result');
     const imgResultElement = document.getElementById('img_result');
+    const toggleFlashButton = document.getElementById('toggle-flash-button'); 
     let isScanning = false;
+    let isFlashEnabled = false;
+    let track; 
 
     const originalConsoleLog = console.log;
     const originalConsoleError = console.error;
@@ -63,14 +66,43 @@ document.addEventListener('DOMContentLoaded', function() {
             }).then(function(stream) {
                 videoElement.srcObject = stream;
                 videoElement.play();
-                initiateScanner(stream);
+                track = stream.getVideoTracks()[0];
+                initiateScanner();
             });
         } else {
             videoElement.srcObject = stream;
             videoElement.play();
-            initiateScanner(stream);
+            track = stream.getVideoTracks()[0];
+            initiateScanner();
         }
     }
+
+    function toggleFlash() {
+        if (isFlashEnabled) {
+            isFlashEnabled = false;
+            if (track && track.applyConstraints) {
+                track.applyConstraints({
+                    advanced: [{ torch: false }]
+                });
+            }
+        } else {
+            isFlashEnabled = true;
+            if (track && track.applyConstraints) {
+                track.applyConstraints({
+                    advanced: [{ torch: true }]
+                });
+            }
+        }
+    }
+
+    toggleFlashButton.addEventListener('click', () => {
+        toggleFlash();
+        if (isFlashEnabled) {
+            toggleFlashButton.textContent = 'Désactiver le Flash';
+        } else {
+            toggleFlashButton.textContent = 'Activer le Flash';
+        }
+    });
 
     function initiateScanner(stream) {
         const track = stream.getVideoTracks()[0];
