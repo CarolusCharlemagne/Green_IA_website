@@ -28,23 +28,26 @@ html
     margin-top: 2%;
     margin-right: 2%;
     margin-left: 10%;
-    width: 80%; 
+    width: 80%;
 }
+
 #search_input {
     width: 70%;
     border-radius: 0.4em;
     border: solid 1px rgb(15, 87, 108);
     background-color: #d9d9d9;
-    height: 20px;
+    height: 100%; 
 }
-#search_button{
+
+#search_button {
     margin-left: 0.2%;
     width: 10%;
     border-radius: 0.4em;
     border: solid 1px rgb(15, 87, 108);
     background-color: #d9d9d9;
-    height: 24px;
+    height: 100%;
 }
+
 .scan_products video {
     margin: 1% 2% 2% 10%;
     width: 80%; 
