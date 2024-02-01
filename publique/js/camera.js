@@ -14,29 +14,37 @@ document.addEventListener('DOMContentLoaded', function() {
         'e': 'img/icons/Eco-score_E.svg'
     };
 
+    const resultElement = document.querySelector('.result');
+
+    function triggerBlinkAnimation(isError = false) {
+        const animationClass = isError ? 'blink-bg-red' : 'blink-bg-blue';
+
+        // Force reflow/repaint pour réinitialiser l'animation
+        resultElement.classList.remove('blink-bg-blue', 'blink-bg-red');
+        // Ceci force le navigateur à reconnaître le changement
+        void resultElement.offsetWidth; 
+
+        resultElement.classList.add(animationClass);
+
+        // Retirer la classe après que l'animation soit terminée
+        setTimeout(() => {
+            resultElement.classList.remove(animationClass);
+        }, 1000); // Durée de l'animation CSS
+    }
+
+    // Remplacement des fonctions console originales pour déclencher le clignotement
     const originalConsoleLog = console.log;
     const originalConsoleError = console.error;
-
-    const resultElement = document.querySelector('.result'); 
-
+    
     console.log = function(...messages) {
         originalConsoleLog(...messages);
-        textResultElement.innerText = messages.join(' ') + '\n'; 
-        resultElement.classList.add('blink-bg-blue');
-        setTimeout(() => {
-            resultElement.classList.remove('blink-bg-blue');
-        }, 1000);
+        triggerBlinkAnimation(); // Clignotement bleu
     };
     
     console.error = function(...messages) {
         originalConsoleError(...messages);
-        textResultElement.innerText = 'Erreur : ' + messages.join(' ') + '\n';
-        resultElement.classList.add('blink-bg-red'); 
-        setTimeout(() => {
-            resultElement.classList.remove('blink-bg-red');
-        }, 1000);
+        triggerBlinkAnimation(true); // Clignotement rouge
     };
-    
 
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
@@ -68,55 +76,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function setupCamera(stream) {
         if (!stream) {
-            navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: 'environment',
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                }
-            }).then(function(stream) {
-                videoElement.srcObject = stream;
-                videoElement.play();
-                track = stream.getVideoTracks()[0];
-                initiateScanner(stream);
-            });
-        } else {
-            videoElement.srcObject = stream;
-            videoElement.play();
-            track = stream.getVideoTracks()[0];
-            initiateScanner(stream);
+            return requestCameraAccess();
         }
+        videoElement.srcObject = stream;
+        videoElement.play();
+        track = stream.getVideoTracks()[0];
+        initiateScanner(stream);
     }
 
     function toggleFlash() {
-        if (isFlashEnabled) {
-            isFlashEnabled = false;
-            if (track && track.applyConstraints) {
-                track.applyConstraints({
-                    advanced: [{ torch: false }]
-                });
-            }
-        } else {
-            isFlashEnabled = true;
-            if (track && track.applyConstraints) {
-                track.applyConstraints({
-                    advanced: [{ torch: true }]
-                });
-            }
+        isFlashEnabled = !isFlashEnabled;
+        if (track && track.applyConstraints) {
+            track.applyConstraints({
+                advanced: [{ torch: isFlashEnabled }]
+            });
         }
     }
 
     function initiateScanner(stream) {
-        const track = stream.getVideoTracks()[0];
-        if (track && track.getCapabilities) {
-            const capabilities = track.getCapabilities();
-            if (capabilities.torch) {
-                track.applyConstraints({
-                    advanced: [{ torch: true }]
-                });
-            }
-        }
-
         Quagga.init({
             inputStream: {
                 name: "Live",
@@ -129,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
             },
             decoder: {
-                readers: ['ean_reader'] 
+                readers: ['ean_reader']
             }
         }, function(err) {
             if (err) {
@@ -148,43 +125,26 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(openFoodFactsApiUrl)
                 .then(response => response.json())
                 .then(data => {
+                    if (!data.product) {
+                        console.error('Aucun produit trouvé !');
+                        return;
+                    }
                     let productData = data.product;
 
-                    let productName = productData.product_name || '';
-                    let brandName = productData.brands || '';
-                    let ecoscoreGrade = productData.ecoscore_grade || '';
-                    let countryOfOrigin = productData.countries || '';
-                    let imageUrl = productData.image_url || '';
+                    let displayText = [
+                        productData.product_name,
+                        productData.brands,
+                        productData.ecoscore_grade && `Ecoscore: ${productData.ecoscore_grade.toUpperCase()}`,
+                        productData.countries && `Origine: ${productData.countries}`
+                    ].filter(Boolean).join('\n');
 
-                    let displayParts = [];
-                    if (productName) displayParts.push(productName);
-                    if (brandName) displayParts.push(brandName);
-                    if (ecoscoreGrade.toLowerCase() in imageMapping) {
-                        imgResultElement.style.backgroundImage = `url(${imageMapping[ecoscoreGrade.toLowerCase()]})`;
-                        imgResultElement.style.display = 'block';
-                    } else {
-                        imgResultElement.style.display = 'none';
-                    }
-                    if (countryOfOrigin) displayParts.push('Origine: ' + countryOfOrigin);
-
-                    let displayText = displayParts.join('\n');
                     textResultElement.innerText = displayText;
 
-                    imgResultElement.innerHTML = '';
-                    if (imageUrl) {
-                        let imageElement = document.createElement('img');
-                        imageElement.src = imageUrl;
-                        imageElement.alt = 'Product Image';
-                        imageElement.style.maxWidth = '100%';
-                        imageElement.style.height = 'auto';
-                        imageElement.style.objectFit = 'contain';
-                        imgResultElement.appendChild(imageElement);
-                    }
+                    let imageUrl = productData.image_url;
+                    imgResultElement.innerHTML = imageUrl ? `<img src="${imageUrl}" alt="Product Image" style="max-width: 100%; height: auto; object-fit: contain;">` : '';
                 })
                 .catch(error => {
                     console.error('Erreur lors de la requête à Open Food Facts :', error);
-                    textResultElement.innerText = 'Aucun produit trouvé !';
-                    imgResultElement.innerHTML = '';
                 })
                 .finally(() => {
                     setTimeout(() => { isScanning = false; }, 2000);
