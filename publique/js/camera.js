@@ -18,20 +18,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const originalConsoleLog = console.log;
     const originalConsoleError = console.error;
 
+    const resultElement = document.querySelector('.result'); 
+
     console.log = function(...messages) {
         originalConsoleLog(...messages);
         textResultElement.innerText = messages.join(' ') + '\n'; 
-        textResultElement.classList.add('blink-bg');
+        resultElement.classList.add('blink-bg-blue');
         setTimeout(() => {
-            textResultElement.classList.remove('blink-bg');
+            resultElement.classList.remove('blink-bg-blue');
         }, 1000);
     };
-
+    
     console.error = function(...messages) {
         originalConsoleError(...messages);
         textResultElement.innerText = 'Erreur : ' + messages.join(' ') + '\n';
-        textResultElement.style.backgroundColor = 'lightcoral';
+        resultElement.classList.add('blink-bg-red'); 
+        setTimeout(() => {
+            resultElement.classList.remove('blink-bg-red');
+        }, 1000);
     };
+    
 
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
