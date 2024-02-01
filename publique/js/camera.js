@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
-    const resultElement = document.getElementById('text_result');
     const imgResultElement = document.getElementById('img_result');
     const toggleFlashButton = document.getElementById('toggle-flash-button');
     let isScanning = false;
@@ -22,10 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log = function(...messages) {
         originalConsoleLog(...messages);
         textResultElement.innerText = messages.join(' ') + '\n'; 
-        resultElement.classList.add('blink-bg');
-        textResultElement.style.backgroundColor = ''; 
+        textResultElement.classList.add('blink-bg');
         setTimeout(() => {
-            resultElement.classList.remove('blink-bg');
+            textResultElement.classList.remove('blink-bg');
         }, 1000);
     };
 
@@ -154,12 +152,10 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(openFoodFactsApiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Données Open Food Facts :', data);
                     let productData = data.product;
 
                     let productName = productData.product_name || '';
                     let brandName = productData.brands || '';
-                    let ecoscoreScore = productData.ecoscore_score || '';
                     let ecoscoreGrade = productData.ecoscore_grade || '';
                     let countryOfOrigin = productData.countries || '';
                     let imageUrl = productData.image_url || '';
@@ -167,13 +163,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     let displayParts = [];
                     if (productName) displayParts.push(productName);
                     if (brandName) displayParts.push(brandName);
-                    if (ecoscoreScore) displayParts.push(ecoscoreScore);
-                    if (ecoscoreGrade) {
-                        displayParts.push(ecoscoreGrade);
-
-                        if (ecoscoreGrade.toLowerCase() in imageMapping) {
-                            imgResultElement.style.backgroundImage = `url(${imageMapping[ecoscoreGrade.toLowerCase()]})`;
-                        }
+                    if (ecoscoreGrade.toLowerCase() in imageMapping) {
+                        imgResultElement.style.backgroundImage = `url(${imageMapping[ecoscoreGrade.toLowerCase()]})`;
+                        imgResultElement.style.display = 'block';
+                    } else {
+                        imgResultElement.style.display = 'none';
                     }
                     if (countryOfOrigin) displayParts.push('Origine: ' + countryOfOrigin);
 
