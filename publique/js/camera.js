@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let track;
 
     const imageMapping = {
-        'a': 'publique/img/Eco-score A.svg',
-        'b': 'publique/img/Eco-score B.svg',
-        'c': 'publique/img/Eco-score C.svg',
-        'd': 'publique/img/Eco-score D.svg',
-        'e': 'publique/img/Eco-score E.svg'
+        'a': 'publique/img/Eco-score_A.svg',
+        'b': 'publique/img/Eco-score_B.svg',
+        'c': 'publique/img/Eco-score_C.svg',
+        'd': 'publique/img/Eco-score_D.svg',
+        'e': 'publique/img/Eco-score_E.svg'
     };
 
     const originalConsoleLog = console.log;
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (brandName) displayParts.push(brandName);
                     if (ecoscoreScore) displayParts.push(ecoscoreScore);
                     if (ecoscoreGrade) {
-                        displayParts.push('Ecoscore Grade: ' + ecoscoreGrade);
+                        displayParts.push(ecoscoreGrade);
 
                         if (ecoscoreGrade.toLowerCase() in imageMapping) {
                             imgResultElement.style.backgroundImage = `url(${imageMapping[ecoscoreGrade.toLowerCase()]})`;
