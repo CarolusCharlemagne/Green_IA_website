@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             let ecoscoreImageElement = document.createElement('img');
                             ecoscoreImageElement.src = imagePaths[ecoscoreGrade.toLowerCase()];
                             ecoscoreImageElement.alt = "Eco-score image";
-                            ecoscoreImageElement.style.height = '5px'; 
+                            ecoscoreImageElement.style.height = '30px'; 
                             ecoscoreImageElement.style.width = 'auto'; 
                             ecoscoreImageElement.style.display = 'block';
                             ecoscoreImageElement.style.objectFit = 'scale-down';

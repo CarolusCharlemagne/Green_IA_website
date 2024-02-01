@@ -77,13 +77,13 @@ animation: blink 1s linear;
     border-radius: 0.4em;
 }
 .eco_score_result {
-    height: 100px;
-    width: auto;
+    height: 32px;
+    width: 32px;
     border: solid 1px red;
     margin: 1% 10% 2% 10%;
 }
 #ecoscore_image {
-    height: 100px;
+    height: 30px;
 }
 #text_result {
     flex: 3; 
