@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let track;
 
     const imageMapping = {
-        'a': 'publique/icons/img/Eco-score_A.svg',
-        'b': 'publique/icons/img/Eco-score_B.svg',
-        'c': 'publique/icons/img/Eco-score_C.svg',
-        'd': 'publique/icons/img/Eco-score_D.svg',
-        'e': 'publique/icons/img/Eco-score_E.svg'
+        'a': '../img/icons/Eco-score_A.svg',
+        'b': '../img/icons/Eco-score_B.svg',
+        'c': '../img/icons/Eco-score_C.svg',
+        'd': '../img/icons/Eco-score_D.svg',
+        'e': '../img/icons/Eco-score_E.svg'
     };
 
     const originalConsoleLog = console.log;
