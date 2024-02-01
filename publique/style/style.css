@@ -73,10 +73,11 @@ animation: blink 1s linear;
 .result {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start; /* Alignement au début */
     margin: 1% 2% 2% 10%;
     width: 80%; 
     height: 23%;
-    border: 1px rgb(109, 141, 43) linear;
+    border: 1px solid rgb(109, 141, 43); /* Correction de 'linear' à 'solid' */
     background-color: #d9d9d9;
     border-radius: 0.4em;
 }
