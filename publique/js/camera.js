@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
+    const ecoscoreImageDiv = document.getElementById('ecoscore_image');
     let isScanning = false;
     let stream = null;
-
 
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
     videoElement.setAttribute('disablePictureInPicture', 'true');
     videoElement.style.objectFit = 'cover';
-
 
     const imagePaths = {
         'a': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_A.svg',
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'd': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_D.svg',
         'e': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_E.svg'
     };
-    
+
     function initCamera() {
         navigator.mediaDevices.getUserMedia({
             video: {
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             }
-            
+
             startScanner();
         }).catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra:', error);
@@ -99,8 +98,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         let brand = productData.brands || '';
                         let ecoscore = productData.ecoscore_score || '';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
-                        let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
+                        let displayText = `${productName}\n${brand}\nEcoscore: ${ecoscore}\nGrade: ${ecoscoreGrade}`;
                         textResultElement.innerText = displayText;
+
+                        if (ecoscoreGrade && imagePaths[ecoscoreGrade.toLowerCase()]) {
+                            let ecoscoreImageElement = document.createElement('img');
+                            ecoscoreImageElement.src = imagePaths[ecoscoreGrade.toLowerCase()];
+                            ecoscoreImageElement.alt = "Eco-score image";
+                            ecoscoreImageElement.style.maxWidth = '100%';
+                            ecoscoreImageElement.style.height = 'auto';
+                            ecoscoreImageElement.style.display = 'block';
+                            ecoscoreImageElement.style.objectFit = 'contain';
+
+                            ecoscoreImageDiv.innerHTML = ''; // Clear previous content
+                            ecoscoreImageDiv.appendChild(ecoscoreImageElement); // Add new image
+                        }
 
                         if (productData.image_url) {
                             let imgElement = document.createElement('img');
