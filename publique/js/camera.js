@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
+    const originTextElement = document.getElementById('origin_text'); // Élément ajouté pour afficher l'origine
     let isScanning = false;
     let stream = null;
 
-    // Créez un objet de correspondance entre les lettres et les chemins d'image locaux
     const imagePaths = {
         'a': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_A.svg',
         'b': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_B.svg',
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ecoscoreImageElement.innerHTML = '';
             ecoscoreImageElement.appendChild(ecoscoreImgElement);
         } else {
-            ecoscoreImageElement.innerHTML = 'Image du grad ecoscore non trouvée';
+            ecoscoreImageElement.innerHTML = 'Image du grade ecoscore non trouvée';
         }
     }
 
@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(data => {
                         if (data.status === 0) {
                             textResultElement.innerText = 'Produit non trouvé';
+                            originTextElement.innerText = ''; // Effacer l'origine en cas de produit non trouvé
                             isScanning = false;
                             return;
                         }
@@ -136,7 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         let ecoscore = productData.ecoscore_score || '';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
                         let productImage = productData.image_url || '';
-                        let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
+                        let origin = productData.origins_tags || []; // Récupérer l'origine du produit
+
+                        // Afficher l'origine dans l'élément HTML
+                        originTextElement.innerText = origin.length > 0 ? origin[0] : 'Non spécifiée';
+
+                        let displayText = `${productName}\n${brand}\n${ecoscore}`;
                         textResultElement.innerText = displayText;
 
                         updateImages(productImage, ecoscoreGrade);
@@ -144,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(error => {
                         console.error('Erreur lors de la requête à Open Food Facts:', error);
                         textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
+                        originTextElement.innerText = ''; // Effacer l'origine en cas d'erreur
                     })
                     .finally(() => {
                         setTimeout(() => { isScanning = false; }, 2000);
