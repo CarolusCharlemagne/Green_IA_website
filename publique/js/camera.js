@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let track;
 
     const imageMapping = {
-        'a': '../img/Eco-score A.svg',
-        'b': '../img/Eco-score B.svg',
-        'c': '../img/Eco-score C.svg',
-        'd': '../img/Eco-score D.svg',
-        'e': '../img/Eco-score E.svg'
+        'a': 'publique/img/Eco-score A.svg',
+        'b': 'publique/img/Eco-score B.svg',
+        'c': 'publique/img/Eco-score C.svg',
+        'd': 'publique/img/Eco-score D.svg',
+        'e': 'publique/img/Eco-score E.svg'
     };
 
     const originalConsoleLog = console.log;
