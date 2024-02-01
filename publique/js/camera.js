@@ -80,11 +80,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         return;
                     }
                     let productData = data.product;
-                    let productName = productData.product_name || 'Nom non disponible';
-                    let brand = productData.brands || 'Fabricant non disponible';
-                    let ecoscore = productData.ecoscore_score || 'Eco-score non disponible';
-                    let ecoscoreGrade = productData.ecoscore_grade || 'Grade Eco-score non disponible';
-                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit: ${productName}\nFabricant: ${brand}\nEco-score: ${ecoscore}\nGrade Eco-score: ${ecoscoreGrade}`;
+                    let productName = productData.product_name || '';
+                    let brand = productData.brands || '';
+                    let ecoscore = productData.ecoscore_score || '';
+                    let ecoscoreGrade = productData.ecoscore_grade || '';
+                    let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
                     textResultElement.innerText = displayText;
 
                     if (productData.image_url) {
