@@ -76,6 +76,11 @@ animation: blink 1s linear;
     background-color: #d9d9d9;
     border-radius: 0.4em;
 }
+.eco_score_result {
+    height: 20px;
+    width: 80%;
+    background-color: grey;
+}
 #text_result {
     flex: 3; 
     margin: 0.2%;
