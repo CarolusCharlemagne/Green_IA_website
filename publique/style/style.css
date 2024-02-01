@@ -82,6 +82,9 @@ animation: blink 1s linear;
     border: solid 1px red;
     margin: 1% 10% 2% 10%;
 }
+#ecoscore_image {
+    height: 100px;
+}
 #text_result {
     flex: 3; 
     margin: 0.2%;
