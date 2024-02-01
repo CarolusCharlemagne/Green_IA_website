@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
-    // Mise à jour pour utiliser l'élément de texte correct
     const textResultElement = document.getElementById('text_result');
     let isScanning = false;
 
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log = function(...messages) {
         originalConsoleLog(...messages);
-        // Utilisation de textResultElement pour le texte
         textResultElement.innerText = messages.join(' ') + '\n'; 
         textResultElement.classList.add('blink-bg');
         textResultElement.style.backgroundColor = ''; 
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.error = function(...messages) {
         originalConsoleError(...messages);
-        // Utilisation de textResultElement pour afficher les erreurs
         textResultElement.innerText = 'Erreur : ' + messages.join(' ') + '\n';
         textResultElement.style.backgroundColor = 'lightcoral';
     };
@@ -86,8 +83,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     let ecoscore = productData.ecoscore_score || 'Non disponible';
                     let countryOfOrigin = productData.countries || 'Non disponible';
                     let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
-                    // Mise à jour du textResultElement avec les données
                     textResultElement.innerText = displayText;
+
+                    if (productData.image_url) {
+                        let imgElement = document.createElement('img');
+                        imgElement.src = productData.image_url;
+                        imgElement.alt = "Image du produit";
+                        imgElement.style.maxWidth = '100%'; 
+                        imgElement.style.height = 'auto'; 
+
+                        let imgResultElement = document.getElementById('img_result');
+                        imgResultElement.innerHTML = ''; 
+                        imgResultElement.appendChild(imgElement);
+                    }
                 })
                 .catch(error => {
                     console.error('Erreur lors de la requête à Open Food Facts :', error);
