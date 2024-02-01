@@ -86,24 +86,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcodeScanner.codeResult.code}.json`;
 
                 fetch(openFoodFactsApiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 0) {
-                        textResultElement.innerText = 'Produit non trouvé';
-                        isScanning = false;
-                        return;
-                    }
-                    let productData = data.product;
-                    let productName = productData.product_name || '';
-                    let brand = productData.brands || '';
-                    let ecoscore = productData.ecoscore_score || '';
-                    let ecoscoreGrade = productData.ecoscore_grade || '';
-                    // Ajout de l'origine du produit
-                    let origins = productData.origins || 'Origine non spécifiée';
-            
-                    // Ajout de l'origine dans le texte à afficher
-                    let displayText = `${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}\nGrade: ${ecoscoreGrade}`;
-                    textResultElement.innerText = displayText;
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 0) {
+                            textResultElement.innerText = 'Produit non trouvé';
+                            isScanning = false;
+                            return;
+                        }
+                        let productData = data.product;
+                        let productName = productData.product_name || '';
+                        let brand = productData.brands || '';
+                        let ecoscore = productData.ecoscore_score || '';
+                        let ecoscoreGrade = productData.ecoscore_grade || '';
+                        let displayText = `${productName}\n${brand}\nEcoscore: ${ecoscore}\nGrade: ${ecoscoreGrade}`;
+                        textResultElement.innerText = displayText;
+
+                        if (ecoscoreGrade && imagePaths[ecoscoreGrade.toLowerCase()]) {
+                            let ecoscoreImageElement = document.createElement('img');
+                            ecoscoreImageElement.src = imagePaths[ecoscoreGrade.toLowerCase()];
+                            ecoscoreImageElement.alt = "Eco-score image";
+                            ecoscoreImageElement.style.borderRadius = '0.4em';
+                            ecoscoreImageElement.style.height = '30px'; 
+                            ecoscoreImageElement.style.width = 'auto'; 
+                            ecoscoreImageElement.style.display = 'block';
+                            ecoscoreImageElement.style.objectFit = 'scale-down';
+
+                            ecoscoreImageDiv.innerHTML = '';
+                            ecoscoreImageDiv.appendChild(ecoscoreImageElement);
+                        }
+
+                        if (productData.image_url) {
+                            let imgElement = document.createElement('img');
+                            imgElement.src = productData.image_url;
+                            imgElement.alt = "Image du produit";
+                            imgElement.style.maxWidth = '100%';
+                            imgElement.style.height = 'auto';
+                            imgElement.style.display = 'block';
+                            imgElement.style.objectFit = 'contain';
+
+                            let imgResultElement = document.getElementById('img_result');
+                            imgResultElement.innerHTML = '';
+                            imgResultElement.appendChild(imgElement);
+                        }
                     })
                     .catch(error => {
                         console.error('Erreur lors de la requête à Open Food Facts:', error);
