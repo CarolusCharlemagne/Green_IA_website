@@ -3,22 +3,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const textResultElement = document.getElementById('text_result');
     let isScanning = false;
 
-    const originalConsoleLog = console.log;
-    const originalConsoleError = console.error;
-
     console.log = function(...messages) {
-        originalConsoleLog(...messages);
-        textResultElement.innerText = messages.join(' ') + '\n'; 
+        console.originalLog(...messages);
+        textResultElement.innerText += messages.join(' ') + '\n';
         textResultElement.classList.add('blink-bg');
-        textResultElement.style.backgroundColor = ''; 
         setTimeout(() => {
             textResultElement.classList.remove('blink-bg');
         }, 1000);
     };
 
     console.error = function(...messages) {
-        originalConsoleError(...messages);
-        textResultElement.innerText = 'Erreur : ' + messages.join(' ') + '\n';
+        console.originalError(...messages);
+        textResultElement.innerText += 'Erreur : ' + messages.join(' ') + '\n';
         textResultElement.style.backgroundColor = 'lightcoral';
     };
 
@@ -33,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             width: { ideal: 1280 },
             height: { ideal: 720 }
         }
-    })
-    .then(function(stream) {
+    }).then(function(stream) {
         videoElement.srcObject = stream;
         videoElement.play();
 
@@ -79,37 +74,42 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(openFoodFactsApiUrl)
                 .then(response => response.json())
                 .then(data => {
+                    if (data.status === 0) {
+                        textResultElement.innerText = 'Produit non trouvé';
+                        isScanning = false;
+                        return;
+                    }
                     let productData = data.product;
-                    let ecoscore = productData.ecoscore_score || 'Non disponible';
-                    let countryOfOrigin = productData.countries || 'Non disponible';
-                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nEcoscore: ${ecoscore}\nPays de provenance: ${countryOfOrigin}`;
+                    let productName = productData.product_name || 'Nom non disponible';
+                    let brand = productData.brands || 'Fabricant non disponible';
+                    let ecoscore = productData.ecoscore_score || 'Eco-score non disponible';
+                    let ecoscoreGrade = productData.ecoscore_grade || 'Grade Eco-score non disponible';
+                    let displayText = `Code-barres détecté : ${barcodeScanner.codeResult.code}\nNom du produit: ${productName}\nFabricant: ${brand}\nEco-score: ${ecoscore}\nGrade Eco-score: ${ecoscoreGrade}`;
                     textResultElement.innerText = displayText;
 
                     if (productData.image_url) {
                         let imgElement = document.createElement('img');
                         imgElement.src = productData.image_url;
                         imgElement.alt = "Image du produit";
-                        imgElement.style.maxWidth = '100%'; 
-                        imgElement.style.height = 'auto'; 
+                        imgElement.style.maxWidth = '100%';
+                        imgElement.style.height = 'auto';
+                        imgElement.style.display = 'block';
+                        imgElement.style.objectFit = 'contain';
 
                         let imgResultElement = document.getElementById('img_result');
-                        imgResultElement.innerHTML = ''; 
+                        imgResultElement.innerHTML = '';
                         imgResultElement.appendChild(imgElement);
                     }
                 })
                 .catch(error => {
-                    console.error('Erreur lors de la requête à Open Food Facts :', error);
-                    textResultElement.classList.add('blink-bg-red'); 
-                    setTimeout(() => {
-                        textResultElement.classList.remove('blink-bg-red'); 
-                    }, 1000);
+                    console.error('Erreur lors de la requête à Open Food Facts:', error);
+                    textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
                 })
                 .finally(() => {
                     setTimeout(() => { isScanning = false; }, 2000);
                 });
         });
-    })
-    .catch(function(error) {
-        console.error('Erreur lors de l\'accès à la caméra :', error);
+    }).catch(function(error) {
+        console.error('Erreur lors de l\'accès à la caméra:', error);
     });
 });
