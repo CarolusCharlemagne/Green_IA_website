@@ -1,17 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
-    const originTextElement = document.getElementById('origin_text'); // Élément ajouté pour afficher l'origine
     let isScanning = false;
     let stream = null;
 
-    const imagePaths = {
-        'a': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_A.svg',
-        'b': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_B.svg',
-        'c': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_C.svg',
-        'd': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_D.svg',
-        'e': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_E.svg'
-    };
 
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
@@ -46,44 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function updateImages(productImage, ecoscoreGrade) {
-        const imgResultElement = document.getElementById('img_result');
-        const ecoscoreImageElement = document.getElementById('ecoscore_image');
-    
-        if (productImage) {
-            const productImgElement = document.createElement('img');
-            productImgElement.src = productImage;
-            productImgElement.alt = "Image du produit";
-            productImgElement.style.maxWidth = '100%';
-            productImgElement.style.height = 'auto';
-            productImgElement.style.display = 'block';
-            productImgElement.style.objectFit = 'contain';
-    
-            imgResultElement.innerHTML = '';
-            imgResultElement.appendChild(productImgElement);
-        } else {
-            imgResultElement.innerHTML = 'Image du produit non trouvée';
-        }
-    
-        if (ecoscoreGrade in imagePaths) {
-            const ecoscoreImagePath = imagePaths[ecoscoreGrade];
-    
-            const ecoscoreImgElement = document.createElement('img');
-            ecoscoreImgElement.src = ecoscoreImagePath;
-            ecoscoreImgElement.alt = "Image correspondant à l'ecoscoreGrade";
-            ecoscoreImgElement.style.maxWidth = '100%';
-            ecoscoreImgElement.style.height = 'auto';
-            ecoscoreImgElement.style.display = 'block';
-            ecoscoreImgElement.style.objectFit = 'contain';
-            ecoscoreImgElement.setAttribute('id', 'ecoscoreImg'); 
-    
-            ecoscoreImageElement.innerHTML = '';
-            ecoscoreImageElement.appendChild(ecoscoreImgElement);
-        } else {
-            ecoscoreImageElement.innerHTML = 'Image du grade ecoscore non trouvée';
-        }
-    }
-    
     function startScanner() {
         if (!stream) {
             console.error('La caméra n\'est pas initialisée.');
@@ -128,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(data => {
                         if (data.status === 0) {
                             textResultElement.innerText = 'Produit non trouvé';
-                            originTextElement.innerText = ''; // Effacer l'origine en cas de produit non trouvé
                             isScanning = false;
                             return;
                         }
@@ -137,21 +90,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         let brand = productData.brands || '';
                         let ecoscore = productData.ecoscore_score || '';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
-                        let productImage = productData.image_url || '';
-                        let origin = productData.origins_tags || []; // Récupérer l'origine du produit
-
-                        // Afficher l'origine dans l'élément HTML
-                        originTextElement.innerText = origin.length > 0 ? origin[0] : 'Non spécifiée';
-
-                        let displayText = `${productName}\n${brand}\n${ecoscore}`;
+                        let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
                         textResultElement.innerText = displayText;
 
-                        updateImages(productImage, ecoscoreGrade);
+                        if (productData.image_url) {
+                            let imgElement = document.createElement('img');
+                            imgElement.src = productData.image_url;
+                            imgElement.alt = "Image du produit";
+                            imgElement.style.maxWidth = '100%';
+                            imgElement.style.height = 'auto';
+                            imgElement.style.display = 'block';
+                            imgElement.style.objectFit = 'contain';
+
+                            let imgResultElement = document.getElementById('img_result');
+                            imgResultElement.innerHTML = '';
+                            imgResultElement.appendChild(imgElement);
+                        }
                     })
                     .catch(error => {
                         console.error('Erreur lors de la requête à Open Food Facts:', error);
                         textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
-                        originTextElement.innerText = ''; // Effacer l'origine en cas d'erreur
                     })
                     .finally(() => {
                         setTimeout(() => { isScanning = false; }, 2000);
