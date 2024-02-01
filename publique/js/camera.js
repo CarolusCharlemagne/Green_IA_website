@@ -4,15 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScanning = false;
     let stream = null;
 
-    // Redéfinition des méthodes console.log et console.error (le reste du code reste inchangé)
 
-    // Configuration de l'élément vidéo
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
     videoElement.setAttribute('disablePictureInPicture', 'true');
     videoElement.style.objectFit = 'cover';
 
-    // Fonction pour initialiser la caméra une seule fois
     function initCamera() {
         navigator.mediaDevices.getUserMedia({
             video: {
@@ -35,14 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Démarrer le scanner immédiatement après avoir initialisé la caméra
             startScanner();
         }).catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra:', error);
         });
     }
 
-    // Fonction pour démarrer le scanner avec le flux vidéo déjà initialisé
     function startScanner() {
         if (!stream) {
             console.error('La caméra n\'est pas initialisée.');
@@ -123,6 +118,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialisation de la caméra au chargement du DOM
     initCamera();
 });
