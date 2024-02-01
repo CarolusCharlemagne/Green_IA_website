@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         let ecoscore = productData.ecoscore_score || '';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
                         let origins = productData.origins || '';
-                        let displayText = `${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%\nGrade: ${ecoscoreGrade}`;
+                        let displayText = `${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
                         textResultElement.innerText = displayText;
 
                         if (ecoscoreGrade && imagePaths[ecoscoreGrade.toLowerCase()]) {
