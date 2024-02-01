@@ -105,13 +105,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             let ecoscoreImageElement = document.createElement('img');
                             ecoscoreImageElement.src = imagePaths[ecoscoreGrade.toLowerCase()];
                             ecoscoreImageElement.alt = "Eco-score image";
-                            ecoscoreImageElement.style.maxWidth = '100%';
-                            ecoscoreImageElement.style.height = 'auto';
+                            ecoscoreImageElement.style.height = '25px'; // Adaptée à la hauteur de la div
+                            ecoscoreImageElement.style.width = 'auto'; // Largeur ajustée automatiquement
                             ecoscoreImageElement.style.display = 'block';
-                            ecoscoreImageElement.style.objectFit = 'contain';
+                            ecoscoreImageElement.style.objectFit = 'scale-down'; // Conserve les proportions sans débordement
 
-                            ecoscoreImageDiv.innerHTML = ''; // Clear previous content
-                            ecoscoreImageDiv.appendChild(ecoscoreImageElement); // Add new image
+                            ecoscoreImageDiv.innerHTML = '';
+                            ecoscoreImageDiv.appendChild(ecoscoreImageElement);
                         }
 
                         if (productData.image_url) {
