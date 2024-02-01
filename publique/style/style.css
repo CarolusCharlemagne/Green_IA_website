@@ -38,9 +38,8 @@ html
     height: 25px; 
 }
 #search_button {
-    margin-left: 0.2%;
-    width: 10%;
-    height: 30px;
+    margin-left: 1%;
+    width: 35px;
 }
 .scan_products video {
     margin: 1% 2% 2% 10%;
