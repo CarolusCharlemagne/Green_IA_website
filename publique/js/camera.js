@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
-    const startScannerButton = document.getElementById('start_camera');
     let isScanning = false;
     let stream = null;
 
@@ -35,14 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             }
+            // Démarrer le scanner immédiatement après avoir initialisé la caméra
+            startScanner();
         }).catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra:', error);
         });
     }
 
     // Fonction pour démarrer le scanner avec le flux vidéo déjà initialisé
-    function startScanner(event) {
-        event.preventDefault();
+    function startScanner() {
         if (!stream) {
             console.error('La caméra n\'est pas initialisée.');
             return;
