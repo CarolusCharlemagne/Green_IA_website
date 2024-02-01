@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScanning = false;
     let stream = null;
 
+    // Créez un objet de correspondance entre les lettres et les chemins d'image locaux
+    const imagePaths = {
+        'a': '../img/icons/Eco-score_A.svg',
+        'b': '../img/icons/Eco-score_B.svg',
+        'c': '../img/icons/Eco-score_C.svg',
+        'd': '../img/icons/Eco-score_D.svg',
+        'e': '../img/icons/Eco-score_E.svg'
+    };
 
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
@@ -36,6 +44,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }).catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra:', error);
         });
+    }
+
+    function updateImage(ecoscoreGrade) {
+        const imgResultElement = document.getElementById('img_result');
+        
+        if (ecoscoreGrade in imagePaths) {
+            const imagePath = imagePaths[ecoscoreGrade];
+
+            const imgElement = document.createElement('img');
+            imgElement.src = imagePath;
+            imgElement.alt = "Image correspondant à l'ecoscoreGrade";
+            imgElement.style.maxWidth = '100%';
+            imgElement.style.height = 'auto';
+            imgElement.style.display = 'block';
+            imgElement.style.objectFit = 'contain';
+
+            imgResultElement.innerHTML = '';
+            imgResultElement.appendChild(imgElement);
+        } else {
+            imgResultElement.innerHTML = 'Image non trouvée';
+        }
     }
 
     function startScanner() {
@@ -94,17 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         textResultElement.innerText = displayText;
 
                         if (productData.image_url) {
-                            let imgElement = document.createElement('img');
-                            imgElement.src = productData.image_url;
-                            imgElement.alt = "Image du produit";
-                            imgElement.style.maxWidth = '100%';
-                            imgElement.style.height = 'auto';
-                            imgElement.style.display = 'block';
-                            imgElement.style.objectFit = 'contain';
-
-                            let imgResultElement = document.getElementById('img_result');
-                            imgResultElement.innerHTML = '';
-                            imgResultElement.appendChild(imgElement);
+                            updateImage(ecoscoreGrade);
                         }
                     })
                     .catch(error => {
