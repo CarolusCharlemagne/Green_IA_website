@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Créez un objet de correspondance entre les lettres et les chemins d'image locaux
     const imagePaths = {
-        'a': '../img/icons/Eco-score_A.svg',
-        'b': '../img/icons/Eco-score_B.svg',
-        'c': '../img/icons/Eco-score_C.svg',
-        'd': '../img/icons/Eco-score_D.svg',
-        'e': '../img/icons/Eco-score_E.svg'
+        'a': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_A.svg',
+        'b': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_B.svg',
+        'c': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_C.svg',
+        'd': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_D.svg',
+        'e': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_E.svg'
     };
 
     videoElement.setAttribute('playsinline', 'true');
