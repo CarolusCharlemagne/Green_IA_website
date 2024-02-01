@@ -55,21 +55,21 @@ html
 #barcode-scanner::-webkit-media-controls {
     display: none !important;
 }
-@keyframes blink-blue {
-0%, 100% { background-color: #d9d9d9; }
-50% { background-color: blue; }
+@keyframes blink {
+    0% { background-color: #d9d9d9; }
+    50% { background-color: rgb(15, 87, 108, 0.7); }
+    100% { background-color: #d9d9d9; }
 }
-.blink-bg-blue {
-animation: blink-blue 1s linear;
-}
+.blink-bg {
+animation: blink 1s linear;
+}  
 @keyframes blink-red {
-0%, 100% { background-color: #d9d9d9; }
-50% { background-color: red; }
+    0%, 100% { background-color: #d9d9d9; }
+    50% { background-color: red; }
 }
 .blink-bg-red {
-animation: blink-red 1s linear;
+    animation: blink-red 1s linear;
 }
-  
 .result {
     display: flex;
     justify-content: space-between;
