@@ -43,7 +43,7 @@ html
     border-radius: 0.4em;
     border: solid 1px rgb(15, 87, 108);
     background-color: #d9d9d9;
-    height: 25px;
+    height: 28px;
 }
 .scan_products video {
     margin: 1% 2% 2% 10%;
@@ -98,7 +98,7 @@ animation: blink 1s linear;
     justify-content: flex-end;
     align-items: center;
     padding: 1%;
-    margin-right: 5%;
+    margin-right: 10%;
 }
 #toggle_flash_button,
 .info_button {

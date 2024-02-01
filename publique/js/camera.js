@@ -3,10 +3,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const textResultElement = document.getElementById('text_result');
     const resultElement = document.getElementById('text_result');
     const imgResultElement = document.getElementById('img_result');
-    const toggleFlashButton = document.getElementById('toggle-flash-button'); 
+    const toggleFlashButton = document.getElementById('toggle-flash-button');
     let isScanning = false;
     let isFlashEnabled = false;
-    let track; 
+    let track;
+
+    const imageMapping = {
+        'a': '../img/Eco-score A.svg',
+        'b': '../img/Eco-score B.svg',
+        'c': '../img/Eco-score C.svg',
+        'd': '../img/Eco-score D.svg',
+        'e': '../img/Eco-score E.svg'
+    };
 
     const originalConsoleLog = console.log;
     const originalConsoleError = console.error;
@@ -160,8 +168,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (productName) displayParts.push(productName);
                     if (brandName) displayParts.push(brandName);
                     if (ecoscoreScore) displayParts.push(ecoscoreScore);
-                    if (ecoscoreGrade) displayParts.push(ecoscoreGrade);
-                    if (countryOfOrigin) displayParts.push('origine: ' + countryOfOrigin);
+                    if (ecoscoreGrade) {
+                        displayParts.push('Ecoscore Grade: ' + ecoscoreGrade);
+
+                        if (ecoscoreGrade.toLowerCase() in imageMapping) {
+                            imgResultElement.style.backgroundImage = `url(${imageMapping[ecoscoreGrade.toLowerCase()]})`;
+                        }
+                    }
+                    if (countryOfOrigin) displayParts.push('Origine: ' + countryOfOrigin);
 
                     let displayText = displayParts.join('\n');
                     textResultElement.innerText = displayText;
