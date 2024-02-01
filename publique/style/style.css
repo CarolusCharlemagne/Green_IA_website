@@ -86,14 +86,14 @@ animation: blink 1s linear;
 }
 #text_result {
     flex: 3; 
-    margin: 0.2%;
+    margin: 0.5%;
     display: flex;
     justify-content: space-between;
     border-radius: 0.4em;
 }
 #img_result {
     flex: 1; 
-    margin: 0.2%;
+    margin: 3%;
     display: flex;
     justify-content: space-between;
     border-radius: 0.6em;
