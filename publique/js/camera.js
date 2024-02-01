@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
+    const startScannerButton = document.getElementById('start-scanner');
     let isScanning = false;
+    let stream = null; // Variable pour stocker le flux vidéo
 
+    // Redéfinition des méthodes console.log et console.error pour afficher les messages dans l'élément textResultElement
     console.log = function(...messages) {
         console.originalLog(...messages);
         textResultElement.innerText += messages.join(' ') + '\n';
@@ -18,20 +21,22 @@ document.addEventListener('DOMContentLoaded', function() {
         textResultElement.style.backgroundColor = 'lightcoral';
     };
 
+    // Configuration de l'élément vidéo
     videoElement.setAttribute('playsinline', 'true');
     videoElement.setAttribute('webkit-playsinline', 'true');
     videoElement.setAttribute('disablePictureInPicture', 'true');
     videoElement.style.objectFit = 'cover';
 
-    // Fonction pour démarrer le scanner
-    function startScanner() {
+    // Fonction pour initialiser la caméra une seule fois
+    function initCamera() {
         navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: 'environment',
                 width: { ideal: 1280 },
                 height: { ideal: 720 }
             }
-        }).then(function(stream) {
+        }).then(function(localStream) {
+            stream = localStream; // Sauvegarde du flux vidéo pour une utilisation ultérieure
             videoElement.srcObject = stream;
             videoElement.play();
 
@@ -44,79 +49,89 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             }
-
-            Quagga.init({
-                inputStream: {
-                    name: "Live",
-                    type: "LiveStream",
-                    target: videoElement,
-                    constraints: {
-                        facingMode: "environment",
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    },
-                },
-                decoder: {
-                    readers: ['ean_reader']
-                }
-            }, function(err) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                Quagga.start();
-            });
-
-            Quagga.onDetected(function(barcodeScanner) {
-                if (isScanning) return;
-                isScanning = true;
-
-                const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcodeScanner.codeResult.code}.json`;
-
-                fetch(openFoodFactsApiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 0) {
-                            textResultElement.innerText = 'Produit non trouvé';
-                            isScanning = false;
-                            return;
-                        }
-                        let productData = data.product;
-                        let productName = productData.product_name || '';
-                        let brand = productData.brands || '';
-                        let ecoscore = productData.ecoscore_score || '';
-                        let ecoscoreGrade = productData.ecoscore_grade || '';
-                        let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
-                        textResultElement.innerText = displayText;
-
-                        if (productData.image_url) {
-                            let imgElement = document.createElement('img');
-                            imgElement.src = productData.image_url;
-                            imgElement.alt = "Image du produit";
-                            imgElement.style.maxWidth = '100%';
-                            imgElement.style.height = 'auto';
-                            imgElement.style.display = 'block';
-                            imgElement.style.objectFit = 'contain';
-
-                            let imgResultElement = document.getElementById('img_result');
-                            imgResultElement.innerHTML = '';
-                            imgResultElement.appendChild(imgElement);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors de la requête à Open Food Facts:', error);
-                        textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
-                    })
-                    .finally(() => {
-                        setTimeout(() => { isScanning = false; }, 2000);
-                    });
-            });
         }).catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra:', error);
         });
     }
 
-    // Écoutez le clic sur le bouton pour démarrer le scanner
-    const startScannerButton = document.getElementById('start-scanner');
+    // Fonction pour démarrer le scanner avec le flux vidéo déjà initialisé
+    function startScanner() {
+        if (!stream) {
+            console.error('La caméra n\'est pas initialisée.');
+            return;
+        }
+
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: videoElement,
+                constraints: {
+                    facingMode: "environment",
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+            },
+            decoder: {
+                readers: ['ean_reader']
+            }
+        }, function(err) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            Quagga.start();
+        });
+
+        Quagga.onDetected(function(barcodeScanner) {
+            if (isScanning) return;
+            isScanning = true;
+
+            const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcodeScanner.codeResult.code}.json`;
+
+            fetch(openFoodFactsApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 0) {
+                        textResultElement.innerText = 'Produit non trouvé';
+                        isScanning = false;
+                        return;
+                    }
+                    let productData = data.product;
+                    let productName = productData.product_name || '';
+                    let brand = productData.brands || '';
+                    let ecoscore = productData.ecoscore_score || '';
+                    let ecoscoreGrade = productData.ecoscore_grade || '';
+                    let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
+                    textResultElement.innerText = displayText;
+
+                    if (productData.image_url) {
+                        let imgElement = document.createElement('img');
+                        imgElement.src = productData.image_url;
+                        imgElement.alt = "Image du produit";
+                        imgElement.style.maxWidth = '100%';
+                        imgElement.style.height = 'auto';
+                        imgElement.style.display = 'block';
+                        imgElement.style.objectFit = 'contain';
+
+                        let imgResultElement = document.getElementById('img_result');
+                        imgResultElement.innerHTML = '';
+                        imgResultElement.appendChild(imgElement);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la requête à Open Food Facts:', error);
+                    textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
+                })
+                .finally(() => {
+                    setTimeout(() => { isScanning = false; }, 2000);
+                });
+        });
+    }
+
+    // Initialisation de la caméra au chargement du DOM
+    initCamera();
+
+    // Démarrage du scanner au clic sur le bouton
     startScannerButton.addEventListener('click', startScanner);
 });
