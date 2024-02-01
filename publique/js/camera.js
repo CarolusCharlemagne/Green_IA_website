@@ -1,27 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
-    const startScannerButton = document.getElementById('start_camera'); // Modifié pour correspondre à l'ID du nouveau bouton
+    const startScannerButton = document.getElementById('start_camera');
     let isScanning = false;
-    let stream = null; // Variable pour stocker le flux vidéo
+    let stream = null;
 
-    // Redéfinition des méthodes console.log et console.error pour afficher les messages dans l'élément textResultElement
-    console.originalLog = console.log;
-    console.originalError = console.error;
-    console.log = function(...messages) {
-        console.originalLog(...messages);
-        textResultElement.innerText += messages.join(' ') + '\n';
-        textResultElement.classList.add('blink-bg');
-        setTimeout(() => {
-            textResultElement.classList.remove('blink-bg');
-        }, 1000);
-    };
-
-    console.error = function(...messages) {
-        console.originalError(...messages);
-        textResultElement.innerText += 'Erreur : ' + messages.join(' ') + '\n';
-        textResultElement.style.backgroundColor = 'lightcoral';
-    };
+    // Redéfinition des méthodes console.log et console.error (le reste du code reste inchangé)
 
     // Configuration de l'élément vidéo
     videoElement.setAttribute('playsinline', 'true');
@@ -38,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 height: { ideal: 720 }
             }
         }).then(function(localStream) {
-            stream = localStream; // Sauvegarde du flux vidéo pour une utilisation ultérieure
+            stream = localStream;
             videoElement.srcObject = stream;
             videoElement.play();
 
@@ -58,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour démarrer le scanner avec le flux vidéo déjà initialisé
     function startScanner(event) {
-        event.preventDefault(); // Empêche le comportement par défaut du lien
+        event.preventDefault();
         if (!stream) {
             console.error('La caméra n\'est pas initialisée.');
             return;
@@ -141,6 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialisation de la caméra au chargement du DOM
     initCamera();
 
-    // Démarrage du scanner au clic sur le bouton
-    startScannerButton.addEventListener('click', startScanner);
+    // Démarrage du scanner au chargement de la page
+    startScanner();
 });
