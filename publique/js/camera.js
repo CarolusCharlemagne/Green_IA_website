@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             }
+            
             // Démarrer le scanner immédiatement après avoir initialisé la caméra
             startScanner();
         }).catch(function(error) {
@@ -124,7 +125,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialisation de la caméra au chargement du DOM
     initCamera();
-
-    // Démarrage du scanner au chargement de la page
-    startScanner();
 });
