@@ -77,7 +77,7 @@ animation: blink 1s linear;
     border-radius: 0.4em;
 }
 .eco_score_result {
-    height: 25px;
+    height: 100px;
     width: auto;
     border: solid 1px red;
     margin: 1% 10% 2% 10%;
