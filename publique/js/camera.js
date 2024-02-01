@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateImages(productImage, ecoscoreGrade) {
         const imgResultElement = document.getElementById('img_result');
         const ecoscoreImageElement = document.getElementById('ecoscore_image');
-
+    
         if (productImage) {
             const productImgElement = document.createElement('img');
             productImgElement.src = productImage;
@@ -58,16 +58,16 @@ document.addEventListener('DOMContentLoaded', function() {
             productImgElement.style.height = 'auto';
             productImgElement.style.display = 'block';
             productImgElement.style.objectFit = 'contain';
-
+    
             imgResultElement.innerHTML = '';
             imgResultElement.appendChild(productImgElement);
         } else {
             imgResultElement.innerHTML = 'Image du produit non trouvée';
         }
-
+    
         if (ecoscoreGrade in imagePaths) {
             const ecoscoreImagePath = imagePaths[ecoscoreGrade];
-
+    
             const ecoscoreImgElement = document.createElement('img');
             ecoscoreImgElement.src = ecoscoreImagePath;
             ecoscoreImgElement.alt = "Image correspondant à l'ecoscoreGrade";
@@ -75,14 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
             ecoscoreImgElement.style.height = 'auto';
             ecoscoreImgElement.style.display = 'block';
             ecoscoreImgElement.style.objectFit = 'contain';
-
+            ecoscoreImgElement.setAttribute('id', 'ecoscoreImg'); 
+    
             ecoscoreImageElement.innerHTML = '';
             ecoscoreImageElement.appendChild(ecoscoreImgElement);
         } else {
             ecoscoreImageElement.innerHTML = 'Image du grade ecoscore non trouvée';
         }
     }
-
+    
     function startScanner() {
         if (!stream) {
             console.error('La caméra n\'est pas initialisée.');
