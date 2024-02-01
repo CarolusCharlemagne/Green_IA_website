@@ -96,6 +96,20 @@ animation: blink 1s linear;
     justify-content: space-between;
     border-radius: 0.4em;
 }
+#top_bar_info_and_flash {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    margin-right: 5%;
+}
+
+#toggle_flash_button,
+.info_button {
+    display: inline-block;
+}
+
+
 
 
 
