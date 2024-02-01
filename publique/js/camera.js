@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     videoElement.style.objectFit = 'cover';
 
     const imagePaths = {
-        'a': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_A.svg',
-        'b': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_B.svg',
-        'c': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_C.svg',
-        'd': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_D.svg',
-        'e': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Eco-score_E.svg'
+        'a': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Picto_A.svg',
+        'b': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Picto_B.svg',
+        'c': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Picto_C.svg',
+        'd': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Picto_D.svg',
+        'e': '/home/charlemagne/workspace/Green_IA_website/publique/img/icons/Picto_E.svg'
     };
 
     function initCamera() {
