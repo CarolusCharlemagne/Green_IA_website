@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     videoElement.style.objectFit = 'cover';
 
     const imagePaths = {
-        'a': '../img/icons/Picto_A.png',
-        'b': '../img/icons/Picto_B.png',
-        'c': '../img/icons/Picto_C.png',
-        'd': '../img/icons/Picto_D.png',
-        'e': '../img/icons/Picto_E.png'
+        'a': 'publique/img/icons/Picto_A.png',
+        'b': 'publique/img/icons/Picto_B.png',
+        'c': 'publique/img/icons/Picto_C.png',
+        'd': 'publique/img/icons/Picto_D.png',
+        'e': 'publique/img/icons/Picto_E.png'
     };
 
     function initCamera() {
