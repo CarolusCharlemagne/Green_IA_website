@@ -46,24 +46,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function updateImage(ecoscoreGrade) {
+    function updateImages(productImage, ecoscoreGrade) {
         const imgResultElement = document.getElementById('img_result');
-        
-        if (ecoscoreGrade in imagePaths) {
-            const imagePath = imagePaths[ecoscoreGrade];
+        const ecoscoreImageElement = document.getElementById('ecoscore_image');
 
-            const imgElement = document.createElement('img');
-            imgElement.src = imagePath;
-            imgElement.alt = "Image correspondant à l'ecoscoreGrade";
-            imgElement.style.maxWidth = '100%';
-            imgElement.style.height = 'auto';
-            imgElement.style.display = 'block';
-            imgElement.style.objectFit = 'contain';
+        if (productImage) {
+            const productImgElement = document.createElement('img');
+            productImgElement.src = productImage;
+            productImgElement.alt = "Image du produit";
+            productImgElement.style.maxWidth = '100%';
+            productImgElement.style.height = 'auto';
+            productImgElement.style.display = 'block';
+            productImgElement.style.objectFit = 'contain';
 
             imgResultElement.innerHTML = '';
-            imgResultElement.appendChild(imgElement);
+            imgResultElement.appendChild(productImgElement);
         } else {
-            imgResultElement.innerHTML = 'Image non trouvée';
+            imgResultElement.innerHTML = 'Image du produit non trouvée';
+        }
+
+        if (ecoscoreGrade in imagePaths) {
+            const ecoscoreImagePath = imagePaths[ecoscoreGrade];
+
+            const ecoscoreImgElement = document.createElement('img');
+            ecoscoreImgElement.src = ecoscoreImagePath;
+            ecoscoreImgElement.alt = "Image correspondant à l'ecoscoreGrade";
+            ecoscoreImgElement.style.maxWidth = '100%';
+            ecoscoreImgElement.style.height = 'auto';
+            ecoscoreImgElement.style.display = 'block';
+            ecoscoreImgElement.style.objectFit = 'contain';
+
+            ecoscoreImageElement.innerHTML = '';
+            ecoscoreImageElement.appendChild(ecoscoreImgElement);
+        } else {
+            ecoscoreImageElement.innerHTML = 'Image du grad ecoscore non trouvée';
         }
     }
 
@@ -119,12 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         let brand = productData.brands || '';
                         let ecoscore = productData.ecoscore_score || '';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
+                        let productImage = productData.image_url || '';
                         let displayText = `${productName}\n${brand}\n${ecoscore}\n${ecoscoreGrade}`;
                         textResultElement.innerText = displayText;
 
-                        if (productData.image_url) {
-                            updateImage(ecoscoreGrade);
-                        }
+                        updateImages(productImage, ecoscoreGrade);
                     })
                     .catch(error => {
                         console.error('Erreur lors de la requête à Open Food Facts:', error);
