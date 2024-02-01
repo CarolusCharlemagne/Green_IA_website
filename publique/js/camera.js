@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
     const imgResultElement = document.getElementById('img_result');
-    const toggleFlashButton = document.getElementById('toggle-flash-button');
     let isScanning = false;
     let isFlashEnabled = false;
     let track;
@@ -106,15 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-
-    toggleFlashButton.addEventListener('click', () => {
-        toggleFlash();
-        if (isFlashEnabled) {
-            toggleFlashButton.textContent = 'flash on';
-        } else {
-            toggleFlashButton.textContent = 'flash off';
-        }
-    });
 
     function initiateScanner(stream) {
         const track = stream.getVideoTracks()[0];
