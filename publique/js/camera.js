@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
     const ecoscoreImageDiv = document.getElementById('ecoscore_image');
+    const imgResultElement = document.getElementById('img_result'); 
     let isScanning = false;
     let stream = null;
 
@@ -17,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
         'd': 'publique/img/icons/Picto_D.png',
         'e': 'publique/img/icons/Picto_E.png'
     };
+
+    function clearImages() {
+        ecoscoreImageDiv.innerHTML = ''; 
+        imgResultElement.innerHTML = ''; 
+    }
 
     function initCamera() {
         navigator.mediaDevices.getUserMedia({
@@ -90,13 +96,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(data => {
                         if (data.status === 0) {
                             textResultElement.innerText = 'Produit non trouvé';
+                            clearImages();
                             isScanning = false;
                             return;
                         }
                         let productData = data.product;
                         let productName = productData.product_name || '';
                         let brand = productData.brands || '';
-                        let ecoscore = productData.ecoscore_score || '';
+                        let ecoscore = productData.ecoscore_score || '0';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
                         let origins = productData.origins || '';
                         let displayText = `${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
@@ -125,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             imgElement.style.display = 'block';
                             imgElement.style.objectFit = 'contain';
 
-                            let imgResultElement = document.getElementById('img_result');
                             imgResultElement.innerHTML = '';
                             imgResultElement.appendChild(imgElement);
                         }
@@ -133,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(error => {
                         console.error('Erreur lors de la requête à Open Food Facts:', error);
                         textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
+                        clearImages(); 
                     })
                     .finally(() => {
                         setTimeout(() => { isScanning = false; }, 2000);
