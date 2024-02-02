@@ -134,7 +134,7 @@ animation: blink 1s linear;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 34px;
-    border: solid 1px rgb(109, 141, 43);
+    border: solid 1px rgb(62, 53, 13);
 }
 .slider:before {
     position: absolute;
@@ -174,7 +174,7 @@ input:checked + .slider:before {
 }
 .page_main_title {
     font-weight: bold;
-    color: rgb(15, 87, 108);
+    color: rgb(62, 53, 13);
 }
 
 
