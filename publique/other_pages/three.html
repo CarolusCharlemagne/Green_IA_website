@@ -7,6 +7,7 @@
     <link rel="icon" href="publique/img/icons/logo.ico" />
     <title>Green IA</title>
     <link href="../style/style.css" rel="stylesheet">
+    <script src="../js/toggle.js"></script>
 </head>
 
 <body>
@@ -16,11 +17,17 @@
     </div>
 
     <div class="page_content_A">
-        <p class="page_main_title">Recommandations</p>
+        <p class="page_main_title">Recommandations A</p>
     </div>
-    <div class="page_content_B">
-        <p class="page_main_title">Recommandations</p>
+    <div class="page_content_B" style="display: none;">
+        <p class="page_main_title">Recommandations B</p>
     </div>
+    <label class="switch">
+        <input type="checkbox" id="toggleButton">
+        <span class="slider" onclick="toggleDesign()"></span>
+    </label>    
+
+
 
 <nav class="navbar">
     <div class = "menu_isol_central">
