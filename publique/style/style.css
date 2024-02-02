@@ -130,10 +130,11 @@ animation: blink 1s linear;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #d9d9d9;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 34px;
+    border: solid 1px rgb(109, 141, 43);
 }
 .slider:before {
     position: absolute;
@@ -142,7 +143,7 @@ animation: blink 1s linear;
     width: 26px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: rgb(15, 87, 108);
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50%;
@@ -159,8 +160,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 .page_content_A, .page_content_B {
-    border: solid 1px red;
-    background-color: grey;
     position: absolute;
     bottom: 100px;
     top: 10%;
@@ -169,8 +168,8 @@ input:checked + .slider:before {
 }
 .end_content_switch {
     position: absolute;
-    bottom: 60px;
-    right: 5%; 
+    bottom: 65px;
+    right: 25%; 
     float: right;
 }
 
