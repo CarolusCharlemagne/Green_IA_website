@@ -179,6 +179,29 @@ input:checked + .slider:before {
 
 
 
+
+/* FIVE INFO */
+.nbr_hab_house {
+    display: flex;
+    justify-content: left;
+    margin-top: 2%;
+    width: 100%;
+}
+#nbr_hab_house_search_input {
+    width: 90%;
+    border-radius: 0.4em;
+    border: solid 1px rgb(15, 87, 108);
+    background-color: #d9d9d9;
+    height: 25px; 
+}
+#nbr_hab_house_search_button {
+    margin-left: 5%;
+    width: 30px;
+}
+
+
+
+
 /* NAV BAR */
 .navbar {
     position: fixed;
