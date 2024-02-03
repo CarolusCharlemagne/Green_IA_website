@@ -193,6 +193,7 @@ input:checked + .slider:before {
     border: solid 1px rgb(15, 87, 108);
     background-color: #d9d9d9;
     height: 25px; 
+    color: black;
 }
 #nbr_hab_house_search_button {
     margin-left: 2%;
