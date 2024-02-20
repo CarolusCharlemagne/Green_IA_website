@@ -89,7 +89,11 @@ document.addEventListener('DOMContentLoaded', function() {
           if (!isScanning) {
               isScanning = true;
 
-              const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcodeScanner.codeResult.code}.json`;
+              const scannedCode = barcodeScanner.codeResult.code;
+              console.log("Code du produit scanné:", scannedCode); 
+              textResultElement.innerText = 'Scanning...';
+
+              const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${scannedCode}.json`;
 
               fetch(openFoodFactsApiUrl)
                   .then(response => response.json())
@@ -106,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       let ecoscore = productData.ecoscore_score || '0';
                       let ecoscoreGrade = productData.ecoscore_grade || '';
                       let origins = productData.origins || '';
-                      let displayText = `${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
+                      let displayText = `Code: ${scannedCode}\n${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
                       textResultElement.innerText = displayText;
 
                       if (ecoscoreGrade && imagePaths[ecoscoreGrade.toLowerCase()]) {
