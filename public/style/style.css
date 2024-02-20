@@ -85,14 +85,14 @@ animation: blink 1s linear;
     height: 30px;
 }
 #text_result {
-    flex: 1; 
+    flex: 2; 
     margin: 0.5%;
     display: flex;
     justify-content: space-between;
     border-radius: 0.4em;
 }
 #img_result {
-    flex: 3; 
+    flex: 2; 
     margin: 3%;
     display: flex;
     justify-content: space-between;
