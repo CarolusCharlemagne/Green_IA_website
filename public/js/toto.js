@@ -1,2 +1,1 @@
-console.log("toto", log);
-console.log("toto");
+console.log("Bonjour, je suis un script JavaScript débile !");

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    console.log('test de contenu', log); 
+    console.log('test de contenu'); 
 
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
