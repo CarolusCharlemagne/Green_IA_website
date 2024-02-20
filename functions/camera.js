@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
               console.log("Code du produit scanné:", scannedCode); 
               textResultElement.innerText = 'Scanning...';
 
+              saveScannedCode(scannedCode);
+
               const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${scannedCode}.json`;
 
               fetch(openFoodFactsApiUrl)
@@ -151,6 +153,28 @@ document.addEventListener('DOMContentLoaded', function() {
           }
       });
   }
+
+  function saveScannedCode(code) {
+      let scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
+      if (!scannedCodes.includes(code)) {
+          scannedCodes.push(code);
+          localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
+      }
+  }
+
+  function downloadScannedCodes() {
+      const scannedCodes = localStorage.getItem('scannedCodes');
+      const blob = new Blob([scannedCodes], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'scanned-codes.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+  }
+
+  document.getElementById('download-scanned-codes').addEventListener('click', downloadScannedCodes);
 
   initCamera();
 });
