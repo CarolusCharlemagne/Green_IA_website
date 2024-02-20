@@ -105,12 +105,12 @@ document.addEventListener('DOMContentLoaded', function() {
                           return;
                       }
                       let productData = data.product;
-                      let productName = productData.product_name || '';
-                      let brand = productData.brands || '';
-                      let ecoscore = productData.ecoscore_score || '0';
-                      let ecoscoreGrade = productData.ecoscore_grade || '';
-                      let origins = productData.origins || '';
-                      let displayText = `Code: ${scannedCode}\n${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
+                      let productName = productData.product_name || 'null';
+                      let brand = productData.brands || 'null';
+                      let ecoscore = productData.ecoscore_score || 'null';
+                      let ecoscoreGrade = productData.ecoscore_grade || 'null';
+                      let origins = productData.origins || 'null';
+                      let displayText = `Code: ${scannedCode}\n${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}`;
                       textResultElement.innerText = displayText;
 
                       if (ecoscoreGrade && imagePaths[ecoscoreGrade.toLowerCase()]) {
