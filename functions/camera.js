@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           isScanning = false;
                           return;
                       }
-                      saveScannedCode(scannedCode, data.product);
+                      saveScannedCode(scannedCode);
 
                       let productData = data.product;
                       let productName = productData.product_name || 'null';
@@ -153,20 +153,24 @@ document.addEventListener('DOMContentLoaded', function() {
           }
       });
   }
+  function saveScannedCode(code) {
+    let scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
+    if (!scannedCodes.includes(code)) {
+        scannedCodes.push(code);
 
-  function saveScannedCode(code, productData) {
-      let scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
-      if (!scannedCodes.some(item => item.code === code)) {
-          scannedCodes.push({ code, productData });
+        const MAX_SIZE = 5; 
+        if (scannedCodes.length > MAX_SIZE + 1) {
+            alert("La liste des produits scannés a dépassé la taille maximale autorisée. Toutes les données vont être effacées pour continuer.");
+            localStorage.clear(); 
+        } else if (scannedCodes.length > MAX_SIZE) {
+            alert("La liste des produits scannés a atteint sa taille maximale. Veuillez télécharger et effacer la liste pour continuer.");
+        } else {
+            localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
+        }
+    }
+}
 
-          const MAX_SIZE = 5; 
-          if (scannedCodes.length > MAX_SIZE) {
-              alert("La liste des produits scannés a atteint sa taille maximale. Veuillez télécharger et effacer la liste pour continuer.");
-          } else {
-              localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
-          }
-      }
-  }
+
 
   function downloadScannedCodes() {
       const scannedCodes = localStorage.getItem('scannedCodes');
