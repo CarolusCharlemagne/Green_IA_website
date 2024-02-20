@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkgreen_ia_website=self.webpackChunkgreen_ia_website||[]).push([[491],{491:(e,s,a)=>{a.d(s,{getFirestore:()=>i.aU});var i=a(234)}}]);
