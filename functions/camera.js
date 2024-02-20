@@ -93,8 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
               console.log("Code du produit scanné:", scannedCode); 
               textResultElement.innerText = 'Scanning...';
 
-              saveScannedCode(scannedCode);
-
               const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${scannedCode}.json`;
 
               fetch(openFoodFactsApiUrl)
@@ -106,6 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
                           isScanning = false;
                           return;
                       }
+                      saveScannedCode(scannedCode, data.product);
+
                       let productData = data.product;
                       let productName = productData.product_name || 'null';
                       let brand = productData.brands || 'null';
@@ -154,11 +154,17 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  function saveScannedCode(code) {
+  function saveScannedCode(code, productData) {
       let scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
-      if (!scannedCodes.includes(code)) {
-          scannedCodes.push(code);
-          localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
+      if (!scannedCodes.some(item => item.code === code)) {
+          scannedCodes.push({ code, productData });
+
+          const MAX_SIZE = 5; 
+          if (scannedCodes.length > MAX_SIZE) {
+              alert("La liste des produits scannés a atteint sa taille maximale. Veuillez télécharger et effacer la liste pour continuer.");
+          } else {
+              localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
+          }
       }
   }
 
