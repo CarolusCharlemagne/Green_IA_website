@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
     const ecoscoreImageDiv = document.getElementById('ecoscore_image');
-    const imgResultElement = document.getElementById('img_result'); 
+    const imgResultElement = document.getElementById('img_result');
     let isScanning = false;
     let stream = null;
 
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     function clearImages() {
-        ecoscoreImageDiv.innerHTML = ''; 
-        imgResultElement.innerHTML = ''; 
+        ecoscoreImageDiv.innerHTML = '';
+        imgResultElement.innerHTML = '';
     }
 
     function initCamera() {
@@ -35,18 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
             stream = localStream;
             videoElement.srcObject = stream;
             videoElement.play();
-
-            const track = stream.getVideoTracks()[0];
-            if (track && track.getCapabilities) {
-                const capabilities = track.getCapabilities();
-                if (capabilities.torch) {
-                    track.applyConstraints({
-                        advanced: [{ torch: true }]
-                    });
-                }
-            }
-
-            startScanner();
         }).catch(function(error) {
             console.error('Erreur lors de l\'accès à la caméra:', error);
         });
@@ -100,13 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             isScanning = false;
                             return;
                         }
+
                         let productData = data.product;
                         let productName = productData.product_name || '';
                         let brand = productData.brands || '';
                         let ecoscore = productData.ecoscore_score || '0';
                         let ecoscoreGrade = productData.ecoscore_grade || '';
                         let origins = productData.origins || '';
-                        let displayText = `${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
+                        let displayText = `Code: ${barcodeScanner.codeResult.code}\n${productName}\n${brand}\nOrigine: ${origins}\nEcoscore: ${ecoscore}%`;
                         textResultElement.innerText = displayText;
 
                         if (ecoscoreGrade && imagePaths[ecoscoreGrade.toLowerCase()]) {
@@ -114,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             ecoscoreImageElement.src = imagePaths[ecoscoreGrade.toLowerCase()];
                             ecoscoreImageElement.alt = "Eco-score image";
                             ecoscoreImageElement.style.borderRadius = '0.4em';
-                            ecoscoreImageElement.style.height = '30px'; 
-                            ecoscoreImageElement.style.width = 'auto'; 
+                            ecoscoreImageElement.style.height = '30px';
+                            ecoscoreImageElement.style.width = 'auto';
                             ecoscoreImageElement.style.display = 'block';
                             ecoscoreImageElement.style.objectFit = 'scale-down';
 
@@ -139,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(error => {
                         console.error('Erreur lors de la requête à Open Food Facts:', error);
                         textResultElement.innerText = 'Erreur lors de la requête à Open Food Facts';
-                        clearImages(); 
+                        clearImages();
                     })
                     .finally(() => {
                         setTimeout(() => { isScanning = false; }, 2000);
