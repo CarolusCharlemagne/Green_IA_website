@@ -97,11 +97,7 @@ animation: blink 1s linear;
     display: flex;
     justify-content: space-between;
     border-radius: 0.6em;
-    
-    width: auto;
-    height: auto;
-    max-height: 50px;
-    min-height: 30px;
+    background-color: red;
 }
 #top_bar_info_and_flash {
     display: flex;
