@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    console.log('test de contenu', log); 
+
     const videoElement = document.getElementById('barcode-scanner');
     const textResultElement = document.getElementById('text_result');
     const ecoscoreImageDiv = document.getElementById('ecoscore_image');
