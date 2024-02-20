@@ -13,7 +13,6 @@ function toggleDesign() {
     }
 }
 
-// Ajout des écouteurs d'événements
 document.querySelectorAll('.toggleButton').forEach(button => {
     button.addEventListener('change', toggleDesign);
 });
