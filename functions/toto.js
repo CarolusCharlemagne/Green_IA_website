@@ -1,1 +1,0 @@
-console.log("Bonjour, je suis un script JavaScript débile !");
