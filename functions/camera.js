@@ -144,6 +144,8 @@ document.getElementById('clear-local-storage').addEventListener('click', functio
                           imgElement.style.height = 'auto';
                           imgElement.style.display = 'block';
                           imgElement.style.objectFit = 'contain';
+                          imgElement.style.borderRadius = '0.5em';
+
 
                           imgResultElement.innerHTML = '';
                           imgResultElement.appendChild(imgElement);
