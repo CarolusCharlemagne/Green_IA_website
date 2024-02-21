@@ -6,12 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
   let isScanning = false;
   let stream = null;
 
+  function updateScannedCodesCount() {
+      const scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
+      const countElement = document.getElementById('scannedCodesCount');
+      countElement.innerText = `Nombre de codes scannés : ${scannedCodes.length}`;
+  }
 
-document.getElementById('clear-local-storage').addEventListener('click', function() {
-    localStorage.clear(); 
-    alert('Le stockage local a été vidé.'); 
-});
-
+  document.getElementById('clear-local-storage').addEventListener('click', function() {
+      localStorage.clear(); 
+      alert('Le stockage local a été vidé.'); 
+      updateScannedCodesCount();
+  });
 
   videoElement.setAttribute('playsinline', 'true');
   videoElement.setAttribute('webkit-playsinline', 'true');
@@ -146,7 +151,6 @@ document.getElementById('clear-local-storage').addEventListener('click', functio
                           imgElement.style.objectFit = 'contain';
                           imgElement.style.borderRadius = '0.5em';
 
-
                           imgResultElement.innerHTML = '';
                           imgResultElement.appendChild(imgElement);
                       }
@@ -168,6 +172,7 @@ document.getElementById('clear-local-storage').addEventListener('click', functio
       if (!scannedCodes.includes(code)) {
           scannedCodes.push(code);
           localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
+          updateScannedCodesCount(); 
       }
   }
 
@@ -186,4 +191,5 @@ document.getElementById('clear-local-storage').addEventListener('click', functio
   document.getElementById('download-scanned-codes').addEventListener('click', downloadScannedCodes);
 
   initCamera();
+  updateScannedCodesCount(); 
 });
