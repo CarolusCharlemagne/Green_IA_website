@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateScannedCodesCount() {
         const scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
         const countElement = document.getElementById('scannedCodesCount');
-        countElement.innerText = `Nombre de codes scannés : ${scannedCodes.length}`;
+        countElement.innerText = `Produits scannés: ${scannedCodes.length}`;
     }
   
     document.getElementById('clear-local-storage').addEventListener('click', function() {
