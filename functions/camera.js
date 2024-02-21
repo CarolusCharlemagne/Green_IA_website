@@ -47,17 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
           stream = localStream;
           videoElement.srcObject = stream;
           videoElement.play();
-
-          const track = stream.getVideoTracks()[0];
-          if (track && track.getCapabilities) {
-              const capabilities = track.getCapabilities();
-              if (capabilities.torch) {
-                  track.applyConstraints({
-                      advanced: [{ torch: true }]
-                  });
-              }
-          }
-
           startScanner();
       }).catch(function(error) {
           console.error('Erreur lors de l\'accès à la caméra:', error);
@@ -105,8 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
               console.log("Code du produit scanné:", scannedCode); 
               textResultElement.innerText = 'Scanning...';
 
-              saveScannedCode(scannedCode);
-
               const openFoodFactsApiUrl = `https://world.openfoodfacts.org/api/v0/product/${scannedCode}.json`;
 
               fetch(openFoodFactsApiUrl)
@@ -118,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
                           isScanning = false;
                           return;
                       }
+                      saveScannedCode(scannedCode);
+
                       let productData = data.product;
                       let productName = productData.product_name || 'null';
                       let brand = productData.brands || 'null';
