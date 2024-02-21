@@ -20,6 +20,60 @@ html
 }
 
 
+
+/* CONTENU DE LA PAGE 1 */
+.button_cat_trash {
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%; 
+    height: 30%;
+    border: 1px solid rgb(109, 141, 43); 
+    background-color: #d9d9d9;
+    border-radius: 0.4em;
+}
+.bouton_choix_style_cat_dechet {
+    border-radius: 0.3em;
+    border: 1px solid rgb(109, 141, 43);
+    padding: 0.8%;
+    color: black;
+}
+#dechets_vert {
+    background-color: green;
+    margin-left: 2%;
+}
+#electromenager {
+    background-color: grey;
+    margin-left: 5%;
+}
+#automobile {
+    background-color: purple;
+    margin-left: 15%;
+}
+#papier_carton {
+    background-color: brown;
+    margin-left: 18%;
+}
+#verre {
+    background-color: lightblue;
+    margin-left: 2%;
+}
+#ordures_menageres {
+    background-color: white;
+    margin-left: 20%;
+}
+#piles {
+    background-color: orange;
+    margin-left: 2%;
+}
+#ampoules {
+    background-color: yellow;
+    margin-left: 30%;
+}
+#autre {
+    background-color: red;
+    margin-left: 10%;
+}
+
 /* CONTENU DE LA PAGE PRINCIPALE */
 .search_bar {
     display: flex;
