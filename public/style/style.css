@@ -96,7 +96,7 @@ animation: blink 1s linear;
     margin: 3%;
     display: flex;
     justify-content: space-between;
-    max-height: 55px;
+    max-height: 95%;
 }
 #top_bar_info_and_flash {
     display: flex;
