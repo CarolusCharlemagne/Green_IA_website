@@ -33,7 +33,6 @@ html
     background-color: #d9d9d9;
     border-radius: 0.4em;
 }
-
 .bouton_choix_style_cat_dechet {
     flex: 1;
     margin: 5px;
@@ -43,12 +42,6 @@ html
     color: black;
     min-width: 100px; 
 }
-.bouton_choix_style_cat_dechet :hover {
-    border: 1px solid black;
-    color: black;
-    min-width: 100px; 
-    background-color: red;
-}
 #dechets_vert {
     background-color: rgba(183, 229, 205, 0.4);
 }
@@ -56,7 +49,7 @@ html
     background-color: rgba(210, 210, 210, 0.4);
 }
 #automobile {
-    background-color: rgba(203, 173, 229, 0.4)rple;
+    background-color: rgba(203, 173, 229, 0.4);
 }
 #papier_carton {
     background-color: rgba(210, 180, 140, 0.4);
@@ -73,7 +66,30 @@ html
 #autre {
     background-color: rgba(255, 153, 153, 0.4);
 }
-
+#dechets_vert:hover {
+    background-color: rgba(183, 229, 205, 0.8);
+}
+#electromenager:hover {
+    background-color: rgba(210, 210, 210, 0.8);
+}
+#automobile:hover {
+    background-color: rgba(203, 173, 229, 0.8);
+}
+#papier_carton:hover {
+    background-color: rgba(210, 180, 140, 0.8);
+}
+#verre:hover {
+    background-color: rgba(173, 216, 230, 0.8);
+}
+#piles:hover {
+    background-color: rgba(255, 187, 153, 0.8);
+}
+#ampoules:hover {
+    background-color: rgba(255, 255, 153, 0.8);
+}
+#autre:hover {
+    background-color: rgba(255, 153, 153, 0.8);
+}
 
 
 
