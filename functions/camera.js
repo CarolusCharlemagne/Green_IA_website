@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
   let isScanning = false;
   let stream = null;
 
+
+document.getElementById('clear-local-storage').addEventListener('click', function() {
+    localStorage.clear(); 
+    alert('Le stockage local a été vidé.'); 
+});
+
+
   videoElement.setAttribute('playsinline', 'true');
   videoElement.setAttribute('webkit-playsinline', 'true');
   videoElement.setAttribute('disablePictureInPicture', 'true');
