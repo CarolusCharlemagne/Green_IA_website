@@ -10,17 +10,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js" defer></script>
 </head>
 <body>
-    <div class="min_space"></div>
     <div id="top_bar_info_and_flash">
         <div>0.86</div>
         <a class="info_button" href="public/other_pages/five.html"><img src="public/img/icons/icons8-info-50.png" alt="report" style="height:35px;"></a>
     </div>
         
-    <div class="min_space"></div>
-    <div class="search_bar">
-        <input type="text" id="search_input" placeholder="Votre phrase ici...">
-        <input type="image" src="public/img/icons/icons8-ok-50.png" id="search_button" alt="OK">
-    </div>
     <div class="min_space"></div>
     <div class="scan_products">
         <video id="barcode-scanner"></video>
@@ -51,9 +45,11 @@
             </div>
         </div> 
     </nav>
-    <div id="scannedCodesCount">Produits scannés: 0</div>
-    <button id="download-scanned-codes" style="margin: 20px;">Télécharger liste</button>
-    <button id="clear-local-storage" style="margin: 20px;">Vider liste</button>
+    <div id="list_manager">
+        <div id="scannedCodesCount">Produits scannés: 0</div>
+        <button id="download-scanned-codes">Télécharger liste</button>
+        <button id="clear-local-storage">Vider liste</button>
+    </div>
     <div class="medium_space"></div>    
 </body>
 </html>
