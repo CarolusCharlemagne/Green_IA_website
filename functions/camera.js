@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       clearImages(); 
                   })
                   .finally(() => {
-                      setTimeout(() => { isScanning = false; }, 2000);
+                      setTimeout(() => { isScanning = false; }, 3);
                   });
           }
       });
