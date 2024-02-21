@@ -23,56 +23,59 @@ html
 
 /* CONTENU DE LA PAGE 1 */
 .button_cat_trash {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    width: 100%; 
-    height: 30%;
-    border: 1px solid rgb(109, 141, 43); 
+    width: 100%;
+    height: auto; 
+    border: 1px solid rgb(109, 141, 43);
     background-color: #d9d9d9;
     border-radius: 0.4em;
 }
+
 .bouton_choix_style_cat_dechet {
+    flex: 1;
+    margin: 5px;
     border-radius: 0.3em;
-    border: 1px solid rgb(109, 141, 43);
+    border: 1px solid black;
     padding: 0.8%;
     color: black;
+    min-width: 100px; 
+}
+.bouton_choix_style_cat_dechet :hover {
+    border: 1px solid black;
+    color: black;
+    min-width: 100px; 
+    background-color: red;
 }
 #dechets_vert {
-    background-color: green;
-    margin-left: 2%;
+    background-color: rgba(183, 229, 205, 0.4);
 }
 #electromenager {
-    background-color: grey;
-    margin-left: 5%;
+    background-color: rgba(210, 210, 210, 0.4);
 }
 #automobile {
-    background-color: purple;
-    margin-left: 15%;
+    background-color: rgba(203, 173, 229, 0.4)rple;
 }
 #papier_carton {
-    background-color: brown;
-    margin-left: 18%;
+    background-color: rgba(210, 180, 140, 0.4);
 }
 #verre {
-    background-color: lightblue;
-    margin-left: 2%;
-}
-#ordures_menageres {
-    background-color: white;
-    margin-left: 20%;
+    background-color: rgba(173, 216, 230, 0.4);
 }
 #piles {
-    background-color: orange;
-    margin-left: 2%;
+    background-color: rgba(255, 187, 153, 0.4);
 }
 #ampoules {
-    background-color: yellow;
-    margin-left: 30%;
+    background-color: rgba(255, 255, 153, 0.4);
 }
 #autre {
-    background-color: red;
-    margin-left: 10%;
+    background-color: rgba(255, 153, 153, 0.4);
 }
+
+
+
 
 /* CONTENU DE LA PAGE PRINCIPALE */
 .search_bar {
