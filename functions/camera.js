@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           ecoscoreImageElement.style.display = 'block';
                           ecoscoreImageElement.style.objectFit = 'scale-down';
 
+                          ecoscoreImageDiv.innerHTML = '';
                           ecoscoreImageDiv.appendChild(ecoscoreImageElement);
                       }
 
@@ -139,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           imgElement.style.objectFit = 'contain';
                           imgElement.style.borderRadius = '0.5em';
 
+                          imgResultElement.innerHTML = '';
                           imgResultElement.appendChild(imgElement);
                       }
                   })
@@ -148,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       clearImages(); 
                   })
                   .finally(() => {
-                      setTimeout(() => { isScanning = false; }, 3);
+                      setTimeout(() => { isScanning = false; }, 2000);
                   });
           }
       });
@@ -156,14 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function saveScannedCode(code) {
       let scannedCodes = JSON.parse(localStorage.getItem('scannedCodes')) || [];
-      if (scannedCodes.length >= 2000) {
-          if (confirm('La liste des codes scannés a atteint 2000 éléments. Voulez-vous télécharger et vider la liste avant de continuer ?')) {
-              downloadScannedCodes();
-              scannedCodes = []; 
-              updateScannedCodesCount();
-          }
-      }
-
       if (!scannedCodes.includes(code)) {
           scannedCodes.push(code);
           localStorage.setItem('scannedCodes', JSON.stringify(scannedCodes));
@@ -173,24 +167,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function downloadScannedCodes() {
       const scannedCodes = localStorage.getItem('scannedCodes');
-      if (scannedCodes) {
-          const blob = new Blob([scannedCodes], { type: 'application/json' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'scanned-codes.json';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-      }
-      localStorage.clear();
-      updateScannedCodesCount();
+      const blob = new Blob([scannedCodes], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'scanned-codes.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
   }
 
-  document.getElementById('download-scanned-codes').addEventListener('click', function() {
-      downloadScannedCodes();
-  });
+  document.getElementById('download-scanned-codes').addEventListener('click', downloadScannedCodes);
 
   initCamera();
-  updateScannedCodesCount();
+  updateScannedCodesCount(); 
 });
