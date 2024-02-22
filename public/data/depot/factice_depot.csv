@@ -1,0 +1,4 @@
+nom,latitude,longitude,ouv_lundi,ouv_mardi,ouv_mercredi,ouv_jeudi,ouv_vendredi,ouv_samedi,ouv_dimanche,ferm_lundi,ferm_mardi,ferm_mercredi,ferm_jeudi,ferm_vendredi,ferm_samedi,ferm_dimanche,dechets_vert,electronique,automobile,carton,papier,verre,piles,ampoules,autre
+Intermarché,43.63241635317403 ,5.138808205954166,08h30,08h30,08h30,08h30,08h30,08h30,09h00,20h00,20h00,20h00,20h00,20h00,20h00,13h00,0,0,0,0,0,0,1,1,0
+poubelles communes,43.63245827171998,5.153435340314095,24h,24h,24h,24h,24h,24h,24h,24h,24h,24h,24h,24h,24h,24h,0,0,0,1,1,0,0,0,1
+Leclerc,43.6294124569237,5.115618974257699,08h45,08h45,08h45,08h45,08h45,08h45,08h45,20h00,20h00,20h00,20h00,20h00,20h00,12h30,0,1,0,0,0,0,1,1,0
