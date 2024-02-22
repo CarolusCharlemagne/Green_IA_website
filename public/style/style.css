@@ -29,7 +29,7 @@ html
 }
 
 
-/* CONTENU DE LA PAGE 1 */
+/* CONTENU DE LA PAGE 2 */
 .button_cat_trash {
     display: flex;
     flex-wrap: wrap;
@@ -45,7 +45,7 @@ html
     flex: 1;
     background-color: #d9d9d9;
     border-radius: 0.3em;
-    border: 1px solid rgb(109, 141, 43);
+    border: 1px solid rgb(15, 87, 108);
     padding: 0.8%;
     color: black;
     min-width: 120px; 
