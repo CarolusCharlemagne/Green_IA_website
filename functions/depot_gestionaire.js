@@ -59,18 +59,47 @@ document.addEventListener("DOMContentLoaded", function() {
     
         var marqueur = L.marker([latitude, longitude]).addTo(carte);
         marqueur.bindPopup('Vous êtes ici').openPopup();
+
+        // Ajout des éléments à moins de 30 km
+        afficherElementsProches(carte, latitude, longitude);
     }
     
-    navigator.geolocation.getCurrentPosition(function(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
-        afficherCarteUtilisateur(latitude, longitude);
-    }, function(error) {
-        console.error("Erreur lors de l'obtention de la position: ", error.message);
-    });    
+    function afficherElementsProches(carte, latitudeUtilisateur, longitudeUtilisateur) {
+        donneesDechetteries.forEach(function(element) {
+            if (distanceEntrePoints(latitudeUtilisateur, longitudeUtilisateur, element.latitude, element.longitude) <= 30) {
+                var marqueur = L.marker([element.latitude, element.longitude]).addTo(carte);
+                marqueur.bindPopup(element.nom);
+            }
+        });
+    }
 
 
+    // Calcul de la distance entre deux points (en kilomètres)
+    function distanceEntrePoints(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Rayon de la Terre en km
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c;
+        return d;
+    }
+
+    // Exécution initiale pour position de l'utilisateur
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
+            afficherCarteUtilisateur(latitude, longitude);
+        }, function(error) {
+            console.error("Erreur lors de l'obtention de la position: ", error.message);
+        });
+    } else {
+        console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+    }
 
     // LISTE DES POINTS DE DEPOT
     const donneesDechetteries = [
