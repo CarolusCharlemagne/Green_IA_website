@@ -41,6 +41,21 @@ html
     background-color: #d9d9d9;
     border-radius: 0.4em;
 }
+.bouton_position_usr {
+    flex: 1;
+    background-color: #d9d9d9;
+    border-radius: 0.3em;
+    border: 1px solid rgb(109, 141, 43);
+    padding: 0.8%;
+    color: black;
+    min-width: 120px; 
+    font-size: large;
+}
+.bouton_position_usr:hover {
+    background-color: #ababab;
+    border-radius: 0.3em;
+    border: 1px solid rgb(109, 141, 43);
+}
 .bouton_choix_style_cat_dechet {
     flex: 1;
     margin: 5px;
@@ -50,6 +65,9 @@ html
     color: black;
     min-width: 100px; 
     font-size: large;
+}
+.bouton_position_usr_div {
+    align-items: flex-start;
 }
 #dechets_vert {
     background-color: rgba(183, 229, 205, 0.4);
