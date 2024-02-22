@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bouton.addEventListener('click', () => {
             if (!clicked) {
                 bouton.style.backgroundColor = couleurs[index]; 
-                bouton.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)'; 
+                bouton.style.boxShadow = '0 4px 6px rgba(0,0,0,0.5)'; 
                 bouton.style.transform = 'translateY(2px)';
                 clicked = true; 
             } else {

@@ -52,7 +52,10 @@ html
 #automobile {
     background-color: rgba(203, 173, 229, 0.4);
 }
-#papier_carton {
+#papier {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+#carton {
     background-color: rgba(210, 180, 140, 0.4);
 }
 #verre {
@@ -68,28 +71,31 @@ html
     background-color: rgba(255, 153, 153, 0.4);
 }
 #dechets_vert:hover {
-    background-color: rgba(183, 229, 205, 0.8);
+    background-color: rgba(183, 229, 205, 0.9);
 }
 #electronique:hover {
-    background-color: rgba(210, 210, 210, 0.8);
+    background-color: rgba(210, 210, 210, 0.9);
 }
 #automobile:hover {
-    background-color: rgba(203, 173, 229, 0.8);
+    background-color: rgba(203, 173, 229, 0.9);
 }
-#papier_carton:hover {
-    background-color: rgba(210, 180, 140, 0.8);
+#carton:hover {
+    background-color: rgba(210, 180, 140, 0.9);
+}
+#papier:hover {
+    background-color: rgba(255, 255, 255, 0.9);
 }
 #verre:hover {
-    background-color: rgba(173, 216, 230, 0.8);
+    background-color: rgba(173, 216, 230, 0.9);
 }
 #piles:hover {
-    background-color: rgba(255, 187, 153, 0.8);
+    background-color: rgba(255, 187, 153, 0.9);
 }
 #ampoules:hover {
-    background-color: rgba(255, 255, 153, 0.8);
+    background-color: rgba(255, 255, 153, 0.9);
 }
 #autre:hover {
-    background-color: rgba(255, 153, 153, 0.8);
+    background-color: rgba(255, 153, 153, 0.9);
 }
 
 
