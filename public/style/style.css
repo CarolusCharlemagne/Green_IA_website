@@ -18,7 +18,15 @@ html
 .min_space {
     min-height: 20px;
 }
-
+.page_main_title {
+    font-size: x-large;
+    color: rgb(62, 53, 13);
+    text-align: center;
+}
+.sub_title {
+    font-size: large;
+    color: rgb(15, 87, 108);
+}
 
 
 /* CONTENU DE LA PAGE 1 */
@@ -267,11 +275,6 @@ input:checked + .slider:before {
     right: 25%; 
     float: right;
 }
-.page_main_title {
-    font-weight: bold;
-    color: rgb(62, 53, 13);
-}
-
 
 
 
