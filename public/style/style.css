@@ -70,31 +70,31 @@ html
     align-items: flex-start;
 }
 #dechets_vert {
-    background-color: rgba(183, 229, 205, 0.4);
+    background-color: rgba(183, 229, 205, 0.2);
 }
 #electronique {
-    background-color: rgba(200, 200, 200, 0.4);
+    background-color: rgba(200, 200, 200, 0.2);
 }
 #automobile {
-    background-color: rgba(203, 173, 229, 0.4);
+    background-color: rgba(203, 173, 229, 0.2);
 }
 #papier {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 #carton {
-    background-color: rgba(210, 180, 140, 0.4);
+    background-color: rgba(210, 180, 140, 0.2);
 }
 #verre {
-    background-color: rgba(173, 216, 230, 0.4);
+    background-color: rgba(173, 216, 230, 0.2);
 }
 #piles {
-    background-color: rgba(255, 187, 153, 0.4);
+    background-color: rgba(255, 187, 153, 0.2);
 }
 #ampoules {
-    background-color: rgba(255, 255, 153, 0.4);
+    background-color: rgba(255, 255, 153, 0.2);
 }
 #autre {
-    background-color: rgba(255, 153, 153, 0.4);
+    background-color: rgba(255, 153, 153, 0.2);
 }
 #dechets_vert:hover {
     background-color: rgba(183, 229, 205, 0.9);
