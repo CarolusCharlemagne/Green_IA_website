@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var marqueur = L.marker([latitude, longitude]).addTo(carte);
         marqueur.bindPopup('Vous êtes ici').openPopup();
 
-        // Ajout des éléments à moins de 30 km
         afficherElementsProches(carte, latitude, longitude);
     }
     
@@ -74,9 +73,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    // Calcul de la distance entre deux points (en kilomètres)
     function distanceEntrePoints(lat1, lon1, lat2, lon2) {
-        var R = 6371; // Rayon de la Terre en km
+        var R = 6371; 
         var dLat = (lat2 - lat1) * Math.PI / 180;
         var dLon = (lon2 - lon1) * Math.PI / 180;
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -87,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return d;
     }
 
-    // Exécution initiale pour position de l'utilisateur
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             const latitude = position.coords.latitude;
@@ -121,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ferm_vendredi: "20h00",
         ferm_samedi: "20h00",
         ferm_dimanche: "13h00",
-        dechets_vert: 0,
+        composte: 0,
         electronique: 0,
         automobile: 0,
         carton: 0,
@@ -149,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ferm_vendredi: "24h",
         ferm_samedi: "24h",
         ferm_dimanche: "24h",
-        dechets_vert: 0,
+        composte: 0,
         electronique: 0,
         automobile: 0,
         carton: 1,
@@ -177,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ferm_vendredi: "20h00",
         ferm_samedi: "20h00",
         ferm_dimanche: "12h30",
-        dechets_vert: 0,
+        composte: 0,
         electronique: 1,
         automobile: 0,
         carton: 0,
