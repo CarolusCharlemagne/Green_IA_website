@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const boutons = document.querySelectorAll('.bouton_choix_style_cat_dechet');
     const couleurs = [
         'rgba(183, 229, 205, 0.9)',
-        'rgba(210, 210, 210, 0.9)',
+        'rgba(200, 200, 200, 0.9)',
         'rgba(203, 173, 229, 0.9)',
         'rgba(210, 180, 140, 0.9)',
+        'rgba(255, 255, 255, 0.9)',
         'rgba(173, 216, 230, 0.9)',
         'rgba(255, 187, 153, 0.9)',
         'rgba(255, 255, 153, 0.9)',
