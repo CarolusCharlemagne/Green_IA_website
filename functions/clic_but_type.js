@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 bouton.style.transform = 'translateY(2px)';
                 clicked = true; 
             } else {
-                bouton.style.backgroundColor = 'rgba(15, 87, 108, 0.2)'; 
+                bouton.style.backgroundColor = ''; 
                 bouton.style.boxShadow = ''; 
                 bouton.style.transform = ''; 
                 clicked = false; 
