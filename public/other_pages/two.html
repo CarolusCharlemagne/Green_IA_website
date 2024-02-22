@@ -9,6 +9,8 @@
     <link href="../style/style.css" rel="stylesheet">
     <script src="../../functions/position.js" defer></script>
     <script src="../../functions/clic_but_type.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -16,6 +18,8 @@
 
     <div class="page_content_A">
         <p class="page_main_title">Points de dépot</p>
+
+        <div id="carte_utilisateur" style="height: 150px;"></div>
 
         <p class="sub_title">1 Votre position :</p>
         <div class="bouton_position_usr_div">
