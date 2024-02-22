@@ -32,7 +32,6 @@ html
     border: 1px solid rgb(109, 141, 43);
     background-color: #d9d9d9;
     border-radius: 0.4em;
-    font-size: larger;
 }
 .bouton_choix_style_cat_dechet {
     flex: 1;
@@ -42,11 +41,12 @@ html
     padding: 0.8%;
     color: black;
     min-width: 100px; 
+    font-size: large;
 }
 #dechets_vert {
     background-color: rgba(183, 229, 205, 0.4);
 }
-#electromenager {
+#electronique {
     background-color: rgba(210, 210, 210, 0.4);
 }
 #automobile {
@@ -70,7 +70,7 @@ html
 #dechets_vert:hover {
     background-color: rgba(183, 229, 205, 0.8);
 }
-#electromenager:hover {
+#electronique:hover {
     background-color: rgba(210, 210, 210, 0.8);
 }
 #automobile:hover {
@@ -251,7 +251,7 @@ input:checked + .slider:before {
 .page_content_A, .page_content_B {
     position: absolute;
     bottom: 100px;
-    top: 10%;
+    top: 0%;
     left: 5%;
     right: 5%;
 }
