@@ -153,16 +153,9 @@ document.addEventListener("DOMContentLoaded", function() {
             return distance <= 30;
         });
     
-        if (!carte) {
-            carte = L.map('carte_utilisateur').setView([userLatitude, userLongitude], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-                maxZoom: 18,
-            }).addTo(carte);
-        } else {
-            carte.setView([userLatitude, userLongitude], 13);
-            marqueurs.clearLayers();
-        }
+        // Centrer la carte sur la position de l'utilisateur
+        carte.setView([userLatitude, userLongitude], 13);
+        marqueurs.clearLayers(); // Nettoyer les marqueurs précédents
     
         enseignesFiltrées.forEach(function(enseigne) {
             let contenuPopup = `<b>${enseigne.nom}</b><br>` +
@@ -172,17 +165,16 @@ document.addEventListener("DOMContentLoaded", function() {
                                `Jeudi: ${enseigne.jeudi}<br>` +
                                `Vendredi: ${enseigne.vendredi}<br>` +
                                `Samedi: ${enseigne.samedi}<br>` +
-                               `Dimanche: ${enseigne.dimanche}<br>`;
+                               `Dimanche: ${enseigne.dimanche}<br><br>Services disponibles :<br>`;
     
-            let servicesDisponibles = "";
-            for (let [cle, valeur] of Object.entries(enseigne)) {
+            let servicesDisponibles = Object.entries(enseigne).reduce((acc, [cle, valeur]) => {
                 if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
-                    servicesDisponibles += `${cle.charAt(0).toUpperCase() + cle.slice(1)}<br>`;
+                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)}<br>`;
                 }
-            }
+                return acc;
+            }, "");
     
             if (servicesDisponibles === "") servicesDisponibles = "Aucun service spécifique disponible";
-    
             contenuPopup += servicesDisponibles;
     
             var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
@@ -190,15 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
             marqueurs.addLayer(marqueur);
         });
     
-        enseignesFiltrées.forEach(function(enseigne) {
-            // Construction du contenu du popup...
-            
-            var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
-            marqueur.bindPopup(contenuPopup);
-            marqueurs.addLayer(marqueur);
-        });
-    
-        marqueurs.addTo(carte);
+        marqueurs.addTo(carte); // Ajouter tous les marqueurs à la carte en une seule fois
     
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
