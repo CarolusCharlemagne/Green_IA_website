@@ -158,8 +158,9 @@ document.addEventListener("DOMContentLoaded", function() {
             return distance <= 30;
         });
     
-        carte.setView([userLatitude, userLongitude], 13);
-        marqueurs.clearLayers(); 
+        marqueurs.clearLayers(); // Efface les marqueurs existants
+    
+        let points = []; // Initialise un tableau pour stocker les coordonnées des points
     
         enseignesFiltrées.forEach(function(enseigne) {
             let contenuPopup = `<b>${enseigne.nom}</b><br>` +
@@ -184,12 +185,22 @@ document.addEventListener("DOMContentLoaded", function() {
             var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
             marqueur.bindPopup(contenuPopup);
             marqueurs.addLayer(marqueur);
+    
+            points.push([enseigne.latitude, enseigne.longitude]); // Ajoute la position du marqueur au tableau
         });
     
-        marqueurs.addTo(carte); 
+        if (points.length > 0) {
+            var bounds = L.latLngBounds(points); // Crée une limite autour de tous les points
+            carte.fitBounds(bounds, {padding: [50, 50]}); // Ajuste la vue de la carte pour englober tous les points avec un padding
+        } else {
+            carte.setView([userLatitude, userLongitude], 13); // Vue par défaut si aucun point n'est à afficher
+        }
+    
+        marqueurs.addTo(carte);
     
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
+    
 
     function distanceEntrePoints(lat1, lon1, lat2, lon2) {
         var R = 6371;
