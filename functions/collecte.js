@@ -27,7 +27,7 @@ function afficherDonneesCollecteSurCarte(lat, lon, resultat) {
                       `Code postal: ${resultat.code_postal}<br>` +
                       `Ordures ménagères: ${resultat.service_ordures_menageres}<br>` +
                       `Tri sélectif: ${resultat.service_tri_selectif}<br>` +
-                      `Déchets verts: ${resultat.service_dechets_verts}`;
+                      `Déchets verts: ${resultat.service_dechets_verts === "null" ? "Non disponible" : resultat.service_dechets_verts}`;
         
         L.marker([lat, lon]).addTo(map)
             .bindPopup(contenu)
@@ -66,6 +66,7 @@ document.getElementById('submitButtonCodePostal').addEventListener('click', func
     var codePostal = document.getElementById('inputUserCodePostal').value;
     if (codePostal) {
         chercherVille(codePostal);
+        document.getElementById('inputUserCodePostal').value = '';
     } else {
        alert("Veuillez entrer un code postal.");
    }
