@@ -133,7 +133,7 @@ html
     background-color: rgba(255, 153, 153, 0.9);
 }
 #carte_utilisateur {
-    height: 250px;
+    height: 400px;
     border-radius: 0.6em;
 }
 .slider_container {
