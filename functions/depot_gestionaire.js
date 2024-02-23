@@ -153,9 +153,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return distance <= 30;
         });
     
-        // Centrer la carte sur la position de l'utilisateur
         carte.setView([userLatitude, userLongitude], 13);
-        marqueurs.clearLayers(); // Nettoyer les marqueurs précédents
+        marqueurs.clearLayers(); 
     
         enseignesFiltrées.forEach(function(enseigne) {
             let contenuPopup = `<b>${enseigne.nom}</b><br>` +
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
             marqueurs.addLayer(marqueur);
         });
     
-        marqueurs.addTo(carte); // Ajouter tous les marqueurs à la carte en une seule fois
+        marqueurs.addTo(carte); 
     
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
