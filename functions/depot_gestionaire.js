@@ -12,20 +12,13 @@ document.addEventListener("DOMContentLoaded", function() {
         nom: "Intermarché",
         latitude: 43.63241635317403,
         longitude: 5.138808205954166,
-        ouv_lundi: "08h30",
-        ouv_mardi: "08h30",
-        ouv_mercredi: "08h30",
-        ouv_jeudi: "08h30",
-        ouv_vendredi: "08h30",
-        ouv_samedi: "08h30",
-        ouv_dimanche: "09h00",
-        ferm_lundi: "20h00",
-        ferm_mardi: "20h00",
-        ferm_mercredi: "20h00",
-        ferm_jeudi: "20h00",
-        ferm_vendredi: "20h00",
-        ferm_samedi: "20h00",
-        ferm_dimanche: "13h00",
+        lundi: "08h30 / 20h00",
+        mardi: "08h30 / 20h00",
+        mercredi: "08h30 / 20h00",
+        jeudi: "08h30 / 20h00",
+        vendredi: "08h30 / 20h00",
+        samedi: "08h30 / 20h00",
+        dimanche: "09h00 / 13h00",
         composte: 0,
         electronique: 0,
         automobile: 0,
@@ -40,20 +33,13 @@ document.addEventListener("DOMContentLoaded", function() {
         nom: "poubelles communes",
         latitude: 43.63245827171998,
         longitude: 5.153435340314095,
-        ouv_lundi: "24h",
-        ouv_mardi: "24h",
-        ouv_mercredi: "24h",
-        ouv_jeudi: "24h",
-        ouv_vendredi: "24h",
-        ouv_samedi: "24h",
-        ouv_dimanche: "24h",
-        ferm_lundi: "24h",
-        ferm_mardi: "24h",
-        ferm_mercredi: "24h",
-        ferm_jeudi: "24h",
-        ferm_vendredi: "24h",
-        ferm_samedi: "24h",
-        ferm_dimanche: "24h",
+        lundi: "24h",
+        mardi: "24h",
+        mercredi: "24h",
+        jeudi: "24h",
+        vendredi: "24h",
+        samedi: "24h",
+        dimanche: "24h",
         composte: 0,
         electronique: 0,
         automobile: 0,
@@ -68,20 +54,13 @@ document.addEventListener("DOMContentLoaded", function() {
         nom: "Leclerc",
         latitude: 43.6294124569237,
         longitude: 5.115618974257699,
-        ouv_lundi: "08h45",
-        ouv_mardi: "08h45",
-        ouv_mercredi: "08h45",
-        ouv_jeudi: "08h45",
-        ouv_vendredi: "08h45",
-        ouv_samedi: "08h45",
-        ouv_dimanche: "08h45",
-        ferm_lundi: "20h00",
-        ferm_mardi: "20h00",
-        ferm_mercredi: "20h00",
-        ferm_jeudi: "20h00",
-        ferm_vendredi: "20h00",
-        ferm_samedi: "20h00",
-        ferm_dimanche: "12h30",
+        lundi: "08h45 / 20h00",
+        mardi: "08h45 / 20h00",
+        mercredi: "08h45 / 20h00",
+        jeudi: "08h45 / 20h00",
+        vendredi: "08h45 / 20h00",
+        samedi: "08h45 / 20h00",
+        dimanche: "08h45 / 12h30",
         composte: 0,
         electronique: 1,
         automobile: 0,
@@ -93,10 +72,6 @@ document.addEventListener("DOMContentLoaded", function() {
         autre: 0
     }
 ];
-
-
-    // liste pour ajouter dépots à afficher
-    let nomDepotsAfficher = [];
 
     function toggleButtonStyle(bouton) {
         if (boutonsCliqués.includes(bouton.id)) {
@@ -145,10 +120,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
     
-
-
-
-
     boutonPosition.addEventListener("click", function() {
         boutonPosition.style.backgroundColor = '#ccc';
         boutonPosition.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5)';
