@@ -150,18 +150,30 @@ document.addEventListener("DOMContentLoaded", function() {
                                `Jeudi: ${enseigne.jeudi}<br>` +
                                `Vendredi: ${enseigne.vendredi}<br>` +
                                `Samedi: ${enseigne.samedi}<br>` +
-                               `Dimanche: ${enseigne.dimanche}`;
+                               `Dimanche: ${enseigne.dimanche}<br><br>Services disponibles :<br>`;
+    
+            // Construire la liste des services disponibles
+            let servicesDisponibles = "";
+            for (let [cle, valeur] of Object.entries(enseigne)) {
+                if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
+                    servicesDisponibles += `${cle.charAt(0).toUpperCase() + cle.slice(1)}<br>`;
+                }
+            }
+    
+            if (servicesDisponibles === "") servicesDisponibles = "Aucun service spécifique disponible";
+    
+            contenuPopup += servicesDisponibles;
     
             var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
             marqueur.bindPopup(contenuPopup);
             marqueurs.addLayer(marqueur);
         });
     
-        marqueurs.addTo(carte); 
+        marqueurs.addTo(carte);
     
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
-
+    
 
     
     boutonPosition.addEventListener("click", function() {
