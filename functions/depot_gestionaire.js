@@ -29,7 +29,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
     
                 L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
-                carte.setView([userLatitude, userLongitude], 13);
+    
+                const latLngBounds = L.latLng(latitude, longitude).toBounds(30000); 
+                carte.fitBounds(latLngBounds);
+    
                 console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
             }, function(error) {
                 console.error("Erreur lors de l'obtention de la position: ", error.message);
@@ -38,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
         }
     }
+    
     
     initialiserLocalisationEtMarqueur(carte)
 
@@ -173,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
             let servicesDisponibles = Object.entries(enseigne).reduce((acc, [cle, valeur]) => {
                 if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
-                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)}. `;
+                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)} `;
                 }
                 return acc;
             }, "");
