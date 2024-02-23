@@ -135,8 +135,6 @@ document.addEventListener("DOMContentLoaded", function() {
             userLatitude = position.coords.latitude;
             userLongitude = position.coords.longitude;
 
-            // Votre code pour afficher la position de l'utilisateur sur la carte...
-
             console.log("Position géographique de l'utilisateur: ", { userLatitude, userLongitude });
         }, function(error) {
             console.error("Erreur lors de l'obtention de la position: ", error.message);
@@ -146,15 +144,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     document.getElementById("valider_type_dechets").addEventListener("click", function() {
-        // Filtrer d'abord les points de dépôt basés sur les types de déchets
         let enseignesFiltrées = donneesDepots.filter(enseigne => 
             boutonsCliqués.some(bouton => enseigne[bouton] === 1)
         );
 
-        // Ensuite, filtrer les enseignes en fonction de leur distance par rapport à l'utilisateur
         enseignesFiltrées = enseignesFiltrées.filter(enseigne => {
             let distance = distanceEntrePoints(userLatitude, userLongitude, enseigne.latitude, enseigne.longitude);
-            return distance <= 30; // Garder seulement les points à moins de 30 km
+            return distance <= 30;
         });
     
         if (!carte) {
@@ -177,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                `Samedi: ${enseigne.samedi}<br>` +
                                `Dimanche: ${enseigne.dimanche}<br><br>Services disponibles :<br>`;
     
-            // Construire la liste des services disponibles
             let servicesDisponibles = "";
             for (let [cle, valeur] of Object.entries(enseigne)) {
                 if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
