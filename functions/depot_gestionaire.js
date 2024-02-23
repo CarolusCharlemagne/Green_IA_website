@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
                 L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
     
-                const latLngBounds = L.latLng(latitude, longitude).toBounds(30000); 
+                const latLngBounds = L.latLng(latitude, longitude).toBounds(15000); // 15000 m 
                 carte.fitBounds(latLngBounds);
     
                 console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         enseignesFiltrées = enseignesFiltrées.filter(enseigne => {
             let distance = distanceEntrePoints(userLatitude, userLongitude, enseigne.latitude, enseigne.longitude);
-            return distance <= 30;
+            return distance <= 15;
         });
     
         carte.setView([userLatitude, userLongitude], 13);
