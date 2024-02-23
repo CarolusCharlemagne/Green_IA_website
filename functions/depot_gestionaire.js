@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const boutonsDechet = document.querySelectorAll(".bouton_choix_style_cat_dechet");
     const boutonPosition = document.getElementById("usr_position");
     let boutonsCliqués = [];
+    let carte; 
+    let marqueurs = L.layerGroup();
 
 
  // LISTE DES POINTS DE DEPOT
@@ -118,24 +120,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("valider_type_dechets").addEventListener("click", function() {
-        // Filtrer les enseignes en fonction des boutons cliqués
         const enseignesFiltrées = donneesDepots.filter(enseigne => 
             boutonsCliqués.some(bouton => enseigne[bouton] === 1)
         );
-    
-        // Initialiser la carte avec Leaflet (assurez-vous que l'élément HTML 'carte' existe)
-        var carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-            maxZoom: 18,
-        }).addTo(carte);
-    
-        // Ajouter des marqueurs pour chaque enseigne filtrée
+
+        if (!carte) {
+            carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+                maxZoom: 18,
+            }).addTo(carte);
+        } else {
+            marqueurs.clearLayers();
+        }
+
         enseignesFiltrées.forEach(function(enseigne) {
-            var marqueur = L.marker([enseigne.latitude, enseigne.longitude]).addTo(carte);
+            var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
             marqueur.bindPopup(enseigne.nom);
+            marqueurs.addLayer(marqueur);
         });
-    
+
+        marqueurs.addTo(carte); 
+
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
     
