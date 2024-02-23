@@ -93,6 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
 ];
 
 
+    // liste pour ajouter dépots à afficher
+    let nomDepotsAfficher = [];
+
     function toggleButtonStyle(bouton) {
         if (boutonsCliqués.includes(bouton.id)) {
             boutonsCliqués = boutonsCliqués.filter(id => id !== bouton.id);
@@ -105,29 +108,17 @@ document.addEventListener("DOMContentLoaded", function() {
             bouton.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5)';
             bouton.style.transform = 'translateY(2px)';
         }
-        
-        boutonsCliqués.forEach(bouton => {
-            donneesDepots.forEach(depot => {
-                let champ_dans_depot = null; 
-                for (let key in depot) {
-                    if (key === bouton) {
-                        champ_dans_depot = key;
-                        break; 
-                    }
-                }
-                
-                if (champ_dans_depot && depot[champ_dans_depot] === 1) { 
-                    console.log("nom depot -> ", depot.nom);
-                }
-            });
-        });
-        
     }
+
 
     boutonsDechet.forEach(function(bouton) {
         bouton.addEventListener("click", function() {
             toggleButtonStyle(bouton);
         });
+    });
+
+    document.getElementById("valider_type_dechets").addEventListener("click", function() {
+        console.log("Boutons de type de déchets cliqués:", boutonsCliqués);
     });
 
     boutonPosition.addEventListener("click", function() {

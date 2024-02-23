@@ -251,7 +251,7 @@ animation: blink 1s linear;
     margin-top: 1%;
     margin-left: 10%;
 }
-#download-scanned-codes, #clear-local-storage {
+.bouton_classic {
     background-color: #d9d9d9;
     border-radius: 0.3em;
     border: 1px solid rgb(109, 141, 43);
