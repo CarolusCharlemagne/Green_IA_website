@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                `Jeudi: ${enseigne.jeudi}<br>` +
                                `Vendredi: ${enseigne.vendredi}<br>` +
                                `Samedi: ${enseigne.samedi}<br>` +
-                               `Dimanche: ${enseigne.dimanche}<br>`;
+                               `Dimanche: ${enseigne.dimanche}<br><b>`;
     
             let servicesDisponibles = Object.entries(enseigne).reduce((acc, [cle, valeur]) => {
                 if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
