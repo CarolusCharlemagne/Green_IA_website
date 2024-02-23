@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
                 L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
     
-                const latLngBounds = L.latLng(latitude, longitude).toBounds(10000); // 10000 m 
+                const latLngBounds = L.latLng(latitude, longitude).toBounds(8000); // 10000 m 
                 carte.fitBounds(latLngBounds);
     
                 console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
