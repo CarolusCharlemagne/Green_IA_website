@@ -118,8 +118,30 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("valider_type_dechets").addEventListener("click", function() {
-        console.log("Boutons de type de déchets cliqués:", boutonsCliqués);
+        // Filtrer les enseignes en fonction des boutons cliqués
+        const enseignesFiltrées = donneesDepots.filter(enseigne => 
+            boutonsCliqués.some(bouton => enseigne[bouton] === 1)
+        );
+    
+        // Initialiser la carte avec Leaflet (assurez-vous que l'élément HTML 'carte' existe)
+        var carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+            maxZoom: 18,
+        }).addTo(carte);
+    
+        // Ajouter des marqueurs pour chaque enseigne filtrée
+        enseignesFiltrées.forEach(function(enseigne) {
+            var marqueur = L.marker([enseigne.latitude, enseigne.longitude]).addTo(carte);
+            marqueur.bindPopup(enseigne.nom);
+        });
+    
+        console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
+    
+
+
+
 
     boutonPosition.addEventListener("click", function() {
         boutonPosition.style.backgroundColor = '#ccc';
@@ -145,32 +167,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 500);
     });
 
-    function afficherCarteUtilisateur(latitude, longitude) {
-        var carte = L.map('carte_utilisateur').setView([latitude, longitude], 13);
-    
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-            maxZoom: 18,
-        }).addTo(carte);
-    
-        var marqueur = L.marker([latitude, longitude]).addTo(carte);
-        marqueur.bindPopup('Vous êtes ici').openPopup();
-
-        afficherElementsProches(carte, latitude, longitude);
-    }
-    
-    function afficherElementsProches(carte, latitudeUtilisateur, longitudeUtilisateur) {
-        donneesDepots.forEach(function(element) {
-            if (distanceEntrePoints(latitudeUtilisateur, longitudeUtilisateur, element.latitude, element.longitude) <= 30) {
-                const correspondance = boutonsCliqués.some(boutonCliqué => element[boutonCliqué] === 1);
-                if (correspondance) {
-                    var marqueur = L.marker([element.latitude, element.longitude]).addTo(carte);
-                    marqueur.bindPopup(element.nom);
-                }
-            }
-        });
-    }
-
     function distanceEntrePoints(lat1, lon1, lat2, lon2) {
         var R = 6371;
         var dLat = (lat2 - lat1) * Math.PI / 180;
@@ -188,7 +184,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
-            afficherCarteUtilisateur(latitude, longitude);
         }, function(error) {
             console.error("Erreur lors de l'obtention de la position: ", error.message);
         });
