@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
 
-            // Créez un icône rouge pour le marqueur de la position de l'utilisateur
             var iconeRouge = L.icon({
                 iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 shadowSize: [41, 41]
             });
 
-            // Affichez le marqueur rouge à la position de l'utilisateur
             L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
 
             console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
@@ -133,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const enseignesFiltrées = donneesDepots.filter(enseigne => 
             boutonsCliqués.some(bouton => enseigne[bouton] === 1)
         );
-
+    
         if (!carte) {
             carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -143,17 +141,28 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             marqueurs.clearLayers();
         }
-
+    
         enseignesFiltrées.forEach(function(enseigne) {
+            let contenuPopup = `<b>${enseigne.nom}</b><br>` +
+                               `Lundi: ${enseigne.lundi}<br>` +
+                               `Mardi: ${enseigne.mardi}<br>` +
+                               `Mercredi: ${enseigne.mercredi}<br>` +
+                               `Jeudi: ${enseigne.jeudi}<br>` +
+                               `Vendredi: ${enseigne.vendredi}<br>` +
+                               `Samedi: ${enseigne.samedi}<br>` +
+                               `Dimanche: ${enseigne.dimanche}`;
+    
             var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
-            marqueur.bindPopup(enseigne.nom);
+            marqueur.bindPopup(contenuPopup);
             marqueurs.addLayer(marqueur);
         });
-
+    
         marqueurs.addTo(carte); 
-
+    
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
+
+
     
     boutonPosition.addEventListener("click", function() {
         boutonPosition.style.backgroundColor = '#ccc';
