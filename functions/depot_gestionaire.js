@@ -147,19 +147,20 @@ document.addEventListener("DOMContentLoaded", function() {
         let enseignesFiltrées = donneesDepots.filter(enseigne => 
             boutonsCliqués.some(bouton => enseigne[bouton] === 1)
         );
-
+    
         enseignesFiltrées = enseignesFiltrées.filter(enseigne => {
             let distance = distanceEntrePoints(userLatitude, userLongitude, enseigne.latitude, enseigne.longitude);
             return distance <= 30;
         });
     
         if (!carte) {
-            carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
+            carte = L.map('carte_utilisateur').setView([userLatitude, userLongitude], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
                 maxZoom: 18,
             }).addTo(carte);
         } else {
+            carte.setView([userLatitude, userLongitude], 13);
             marqueurs.clearLayers();
         }
     
@@ -184,6 +185,14 @@ document.addEventListener("DOMContentLoaded", function() {
     
             contenuPopup += servicesDisponibles;
     
+            var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
+            marqueur.bindPopup(contenuPopup);
+            marqueurs.addLayer(marqueur);
+        });
+    
+        enseignesFiltrées.forEach(function(enseigne) {
+            // Construction du contenu du popup...
+            
             var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
             marqueur.bindPopup(contenuPopup);
             marqueurs.addLayer(marqueur);
