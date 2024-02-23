@@ -158,13 +158,12 @@ document.addEventListener("DOMContentLoaded", function() {
             return distance <= 30;
         });
     
+        carte.setView([userLatitude, userLongitude], 13);
         marqueurs.clearLayers(); 
-    
-        let points = []; 
     
         enseignesFiltrées.forEach(function(enseigne) {
             let contenuPopup = `<b>${enseigne.nom}</b><br>` +
-                               `Lundi: ${enseigne.lundi}<br>` 
+                               `Lundi: ${enseigne.lundi}<br>` +
                                `Mardi: ${enseigne.mardi}<br>` +
                                `Mercredi: ${enseigne.mercredi}<br>` +
                                `Jeudi: ${enseigne.jeudi}<br>` +
@@ -174,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
             let servicesDisponibles = Object.entries(enseigne).reduce((acc, [cle, valeur]) => {
                 if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
-                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)} `;
+                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)}. `;
                 }
                 return acc;
             }, "");
@@ -185,22 +184,12 @@ document.addEventListener("DOMContentLoaded", function() {
             var marqueur = L.marker([enseigne.latitude, enseigne.longitude]);
             marqueur.bindPopup(contenuPopup);
             marqueurs.addLayer(marqueur);
-    
-            points.push([enseigne.latitude, enseigne.longitude]); 
         });
     
-        if (points.length > 0) {
-            var bounds = L.latLngBounds(points); 
-            carte.fitBounds(bounds, {padding: [50, 50]}); 
-        } else {
-            carte.setView([userLatitude, userLongitude], 13); 
-        }
-    
-        marqueurs.addTo(carte);
+        marqueurs.addTo(carte); 
     
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
     });
-    
 
     function distanceEntrePoints(lat1, lon1, lat2, lon2) {
         var R = 6371;
