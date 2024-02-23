@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                `Jeudi: ${enseigne.jeudi}<br>` +
                                `Vendredi: ${enseigne.vendredi}<br>` +
                                `Samedi: ${enseigne.samedi}<br>` +
-                               `Dimanche: ${enseigne.dimanche}<br><b>Services disponibles :<br>`;
+                               `Dimanche: ${enseigne.dimanche}<br>`;
     
             let servicesDisponibles = "";
             for (let [cle, valeur] of Object.entries(enseigne)) {
