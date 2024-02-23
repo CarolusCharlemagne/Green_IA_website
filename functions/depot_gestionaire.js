@@ -5,6 +5,41 @@ document.addEventListener("DOMContentLoaded", function() {
     let carte; 
     let marqueurs = L.layerGroup();
 
+    if (!carte) {
+        carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+            maxZoom: 18,
+        }).addTo(carte);
+    }
+
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Créez un icône rouge pour le marqueur de la position de l'utilisateur
+            var iconeRouge = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            // Affichez le marqueur rouge à la position de l'utilisateur
+            L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
+
+            console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
+        }, function(error) {
+            console.error("Erreur lors de l'obtention de la position: ", error.message);
+        });
+    } else {
+        console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+    }
+
 
  // LISTE DES POINTS DE DEPOT
  const donneesDepots = [
