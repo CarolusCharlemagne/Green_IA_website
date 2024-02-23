@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="icon" href="../img/icons/logo.ico" />
     <title>Green IA</title>
+    <script src="../../functions/collecte.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="../style/style.css" rel="stylesheet">
 </head>
 
@@ -14,10 +17,12 @@
 
     <div class="page_content_A">
         <p class="page_main_title">Collecte des déchets</p>
-
-        
+        <div id="carte_utilisateur_collecte"></div>
+    
+        <input type="text" id="inputUserCodePostal" placeholder="Entrez votre code postal...">
+        <button id="submitButtonCodePostal">Soumettre</button>
     </div>
-
+    
 <nav class="navbar">
     <div class = "menu_isol_central">
         <div class="nav_button">

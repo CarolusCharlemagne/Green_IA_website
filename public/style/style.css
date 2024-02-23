@@ -132,7 +132,7 @@ html
 #autre:hover {
     background-color: rgba(255, 153, 153, 0.9);
 }
-#carte_utilisateur {
+#carte_utilisateur, #carte_utilisateur_collecte {
     height: 350px;
     border-radius: 0.6em;
 }
