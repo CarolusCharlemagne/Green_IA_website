@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     const boutonsDechet = document.querySelectorAll(".bouton_choix_style_cat_dechet");
-    const boutonPosition = document.getElementById("usr_position");
     let boutonsCliqués = [];
     let carte; 
     let marqueurs = L.layerGroup();
@@ -14,29 +13,33 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-
-            var iconeRouge = L.icon({
-                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
+    function initialiserLocalisationEtMarqueur(carte) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+    
+                var iconeRouge = L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+    
+                L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
+    
+                console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
+            }, function(error) {
+                console.error("Erreur lors de l'obtention de la position: ", error.message);
             });
-
-            L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
-
-            console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
-        }, function(error) {
-            console.error("Erreur lors de l'obtention de la position: ", error.message);
-        });
-    } else {
-        console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+        } else {
+            console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+        }
     }
+    
+    initialiserLocalisationEtMarqueur(carte)
 
 
  // LISTE DES POINTS DE DEPOT
