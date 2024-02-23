@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return distance <= 15;
         });
     
-        carte.setView([userLatitude, userLongitude], 13);
+        carte.setView([userLatitude, userLongitude], carte.getZoom());
         marqueurs.clearLayers(); 
     
         enseignesFiltrées.forEach(function(enseigne) {
