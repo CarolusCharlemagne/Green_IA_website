@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
     
                 L.marker([latitude, longitude], {icon: iconeRouge}).addTo(carte).bindPopup("Vous êtes ici").openPopup();
-    
+                carte.setView([userLatitude, userLongitude], 13);
                 console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
             }, function(error) {
                 console.error("Erreur lors de l'obtention de la position: ", error.message);
@@ -138,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function() {
             userLatitude = position.coords.latitude;
             userLongitude = position.coords.longitude;
 
+            initialiserLocalisationEtMarqueur(carte)
+
             console.log("Position géographique de l'utilisateur: ", { userLatitude, userLongitude });
         }, function(error) {
             console.error("Erreur lors de l'obtention de la position: ", error.message);
@@ -171,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
             let servicesDisponibles = Object.entries(enseigne).reduce((acc, [cle, valeur]) => {
                 if (valeur === 1 && ['composte', 'electronique', 'automobile', 'carton', 'papier', 'verre', 'piles', 'ampoules', 'autre'].includes(cle)) {
-                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)},`;
+                    return acc + `${cle.charAt(0).toUpperCase() + cle.slice(1)}`;
                 }
                 return acc;
             }, "");
@@ -187,32 +189,6 @@ document.addEventListener("DOMContentLoaded", function() {
         marqueurs.addTo(carte); 
     
         console.log("Enseignes correspondant aux critères :", enseignesFiltrées.map(e => e.nom));
-    });
-    
-
-    
-    boutonPosition.addEventListener("click", function() {
-        boutonPosition.style.backgroundColor = '#ccc';
-        boutonPosition.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5)';
-        boutonPosition.style.transform = 'translateY(2px)';
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                console.log("Position géographique de l'utilisateur: ", { latitude, longitude });
-            }, function(error) {
-                console.error("Erreur lors de l'obtention de la position: ", error.message);
-            });
-        } else {
-            console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
-        }
-
-        setTimeout(function() {
-            boutonPosition.style.backgroundColor = '';
-            boutonPosition.style.boxShadow = '';
-            boutonPosition.style.transform = '';
-        }, 500);
     });
 
     function distanceEntrePoints(lat1, lon1, lat2, lon2) {
