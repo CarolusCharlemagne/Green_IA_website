@@ -335,7 +335,6 @@ input:checked + .slider:before {
     top: 0%;
     left: 5%;
     right: 5%;
-    background-color: grey;
 }
 .end_content_switch {
     position: absolute;
