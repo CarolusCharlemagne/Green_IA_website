@@ -19,12 +19,13 @@ html
     min-height: 20px;
 }
 .page_main_title {
+    font-weight: bold;
     font-size: x-large;
     color: rgb(62, 53, 13);
     text-align: center;
 }
 .sub_title {
-    font-size: x-large;
+    font-size: large;
     color: rgb(15, 87, 108);
 }
 .text_classique {
