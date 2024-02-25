@@ -3,7 +3,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// LISTE DES POINTS DE COLLECTE
+// LISTE DES POINTS DE COLLECTE DEBUT
 const donneesCollecte = [
     {
         nom_ville: "Pélissanne",
@@ -20,6 +20,7 @@ const donneesCollecte = [
         service_dechets_verts: "null"
     }
 ];
+// LISTE DES POINTS DE COLLECTE FIN
 
 function afficherDonneesCollecteSurCarte(lat, lon, resultat) {
     if (resultat) {
