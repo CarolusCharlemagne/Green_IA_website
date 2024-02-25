@@ -1,7 +1,10 @@
-var map = L.map('carte_utilisateur_collecte').setView([46.52863469527167, 2.43896484375], 5); 
+var map = L.map('carte_utilisateur_collecte').setView([46.52863469527167, 2.43896484375], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
+// Ajout d'une variable pour garder une trace du dernier marqueur
+var dernierMarqueur;
 
 // DEBUT
 const donneesCollecte = [
@@ -111,21 +114,20 @@ const donneesCollecte = [
 // FIN 
 
 function afficherDonneesCollecteSurCarte(lat, lon, resultat) {
-    if (resultat) {
-        var contenu = `<b>${resultat.nom_ville}</b><br>` +
-                      `Code postal: ${resultat.code_postal}<br>` +
-                      `Ordures ménagères: ${resultat.service_ordures_menageres}<br>` +
-                      `Tri sélectif: ${resultat.service_tri_selectif}<br>` +
-                      `Déchets verts: ${resultat.service_dechets_verts === "null" ? "Non disponible" : resultat.service_dechets_verts}`;
-        
-        L.marker([lat, lon]).addTo(map)
-            .bindPopup(contenu)
-            .openPopup();
-    } else {
-        L.marker([lat, lon]).addTo(map)
-            .bindPopup("Aucune donnée n'est pour le moment disponible pour ce code postal.")
-            .openPopup();
+    if (dernierMarqueur) {
+        map.removeLayer(dernierMarqueur); 
     }
+    
+    var contenu = resultat ? `<b>${resultat.nom_ville}</b><br>` +
+                             `Code postal: ${resultat.code_postal}<br>` +
+                             `Ordures ménagères: ${resultat.service_ordures_menageres}<br>` +
+                             `Tri sélectif: ${resultat.service_tri_selectif}<br>` +
+                             `Déchets verts: ${resultat.service_dechets_verts === "null" ? "Non disponible" : resultat.service_dechets_verts}` :
+                             "Aucune donnée n'est pour le moment disponible pour ce code postal.";
+
+    dernierMarqueur = L.marker([lat, lon]).addTo(map)
+                      .bindPopup(contenu)
+                      .openPopup();
 }
 
 function chercherVille(codePostal) {
@@ -157,6 +159,6 @@ document.getElementById('submitButtonCodePostal').addEventListener('click', func
         chercherVille(codePostal);
         document.getElementById('inputUserCodePostal').value = '';
     } else {
-       alert("Veuillez entrer un code postal.");
-   }
+        alert("Veuillez entrer un code postal.");
+    }
 });
