@@ -331,7 +331,7 @@ input:checked + .slider:before {
 }
 .page_content_A, .page_content_B {
     position: absolute;
-    bottom: 100px;
+    bottom: 150px;
     top: 0%;
     left: 5%;
     right: 5%;
