@@ -1,7 +1,11 @@
-var map = L.map('carte_utilisateur_collecte').setView([46.52863469527167, 2.43896484375], 5);
+var map = L.map('carte_utilisateur_collecte', {
+    zoomControl: false // Désactiver les boutons de zoom
+}).setView([46.52863469527167, 2.43896484375], 5); // Définir la vue initiale
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
 
 // Ajout d'une variable pour garder une trace du dernier marqueur
 var dernierMarqueur;
