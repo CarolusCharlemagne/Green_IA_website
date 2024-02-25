@@ -1,0 +1,121 @@
+const donneesCollecte = [
+    {
+        nom_ville: "COUDOUX",
+        code_postal: 13111,
+        service_ordures_menageres: " Collet Sud",
+        service_tri_selectif: " Petit Coudoux, Bastide Neuve",Mardi et Samedi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "CHATEAUNEUF LE ROUGE",
+        code_postal: 13790,
+        service_ordures_menageres: " Jarry",
+        service_tri_selectif: " Les Oliviers, Le Pouchon, Les Villageoises, Maubequi et Les Derrabades",Lundi et Jeudi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "EGUILLES",
+        code_postal: 13510,
+        service_ordures_menageres: "Lundi, vendredi",
+        service_tri_selectif: "1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "JOUQUES",
+        code_postal: 13490,
+        service_ordures_menageres: "Lundi, Vendredi",
+        service_tri_selectif: "1/2 jeudi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "LA ROQUE D'ANTHERON",
+        code_postal: 13640,
+        service_ordures_menageres: " L’Orée du Bourg",
+        service_tri_selectif: " Quartier La Rabassière",Lundi et Vendredi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "LAMBESC",
+        code_postal: 13410,
+        service_ordures_menageres: "Lundi, Vendredi",
+        service_tri_selectif: "1/2 jeudi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "LE PUY SAINTE REPARADE",
+        code_postal: 13610,
+        service_ordures_menageres: " Calendal",
+        service_tri_selectif: " Les Cigales, Saint Louis et Mireille",Mardi et Samedi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "MEYRARGUES",
+        code_postal: 13650,
+        service_ordures_menageres: " résidence IDEM",
+        service_tri_selectif: " Les Bruyères, Rue de l’Hotel de Ville, Les Cigales, Avenue du Stade, Chemin de St Jean, Lotissements L’Aumerade, Le Rousset",Mardi et Samedi,1/2 mardi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "MEYREUIL",
+        code_postal: 13590,
+        service_ordures_menageres: " Guiramande",
+        service_tri_selectif: " Anglais, Fontgamatte, Grivoton, Montaiguet, Anges, Bruis, Levesi, Martelière, Sorbiers, Mûriers, Chef Lieu, Pins, Rambert, Coteau Rouge, Chuchine, Amandiers, Chateauveyre, Sarrière, Lauriers Roses, Perussiers, Pontet, Houillères, Stade, Sauvaires, Ste. Barbe, Sarret",Lundi et Vendredi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "MIMET",
+        code_postal: 13105,
+        service_ordures_menageres: " St Marc la Morée",
+        service_tri_selectif: " Saurine, RN7, Martina, Barlatier, Tuileries, RN96, Bachasson, Valbrillant, Charbonnières, Plan, Bastidons, Roucasse, Molle,Cent Pins,Bourtin, Roquette, Pueche, Gréasque, Aigues Marines, Cité Sondage, Saphirs",Mardi et Jeudi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "PERTUIS",
+        code_postal: 84120,
+        service_ordures_menageres: " Moulières",
+        service_tri_selectif: " Avenue de Provence, Routes de Simiane et du Géant, Recygalets, Vignes Basses, Rigauds",Lundi et Jeudi,1/2 jeudi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "PEYROLLES",
+        code_postal: 13860,
+        service_ordures_menageres: " La Burlière",
+        service_tri_selectif: " Saint Roch, Saint Martin, La Montagnière",,1/2 jeudi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "ROGNES",
+        code_postal: 13840,
+        service_ordures_menageres: " Vomanos",
+        service_tri_selectif: " Bastide Blanche, Nirons, Bastidou, Ste Anne, Défends, Jas de Mathurin, Regagnade, Chemin du Canal",Mardi et Samedi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "SAINT-CANNAT",
+        code_postal: 13760,
+        service_ordures_menageres: " Aires",
+        service_tri_selectif: " Clos Bailli, Hauts de St estève, Ferrage, Allée des Cerisiers, Lotissement Ste Marguerite",Lundi et Vendredi,1/2 jeudi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "SIMIANE COLLONGUE",
+        code_postal: 13109,
+        service_ordures_menageres: " Clos du Roy",
+        service_tri_selectif: " Queyrelier, Les Jardins du Rayol, Domaine de la Frégate, Le Mail de la Chapelle, La Galinette",Mercredi et Samedi,1/2 mercredi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "VENELLES",
+        code_postal: 13770,
+        service_ordures_menageres: "Les Cabassols",
+        service_tri_selectif: " Fontcuberte, Centre Ville, Hauts de Venelles, gendarmerie, Grande Terre",Lundi et Jeudi,1/2 samedi",
+        service_dechets_verts: "null"
+    },
+    {
+        nom_ville: "VENTABREN",
+        code_postal: 13122,
+        service_ordures_menageres: " Campagne Violaine",
+        service_tri_selectif: " Les Faurys",Mardi et Vendredi,1/2 jeudi",
+        service_dechets_verts: "null"
+    },
+];
