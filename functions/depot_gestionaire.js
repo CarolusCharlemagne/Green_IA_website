@@ -5,12 +5,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let marqueurs = L.layerGroup();
 
     if (!carte) {
-        carte = L.map('carte_utilisateur').setView([43.63241635317403, 5.138808205954166], 13);
+        carte = L.map('carte_utilisateur', {
+            zoomControl: false 
+        }).setView([43.63241635317403, 5.138808205954166], 13); 
+    
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
             maxZoom: 18,
         }).addTo(carte);
     }
+    
 
 
     function initialiserLocalisationEtMarqueur(carte) {
