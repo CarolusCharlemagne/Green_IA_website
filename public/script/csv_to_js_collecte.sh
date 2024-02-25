@@ -22,3 +22,19 @@ sed -i '$ s/,$//' "$output_file"
 echo "];" >> "$output_file"
 
 echo "Les données ont été écrites dans $output_file"
+
+# script pour mettre a jour les données du fichier js
+JS_FILE="../../functions/collecte.js"
+TXT_FILE=$output_file
+TMP_FILE=$(mktemp)
+
+sed '/\/\/ DEBUT/,/\/\/ FIN/{//!d}' "$JS_FILE" > "$TMP_FILE"
+
+awk '/\/\/ DEBUT/{print;print "content_to_insert";next}1' "$TMP_FILE" > "$JS_FILE" && sed -i "/content_to_insert/r $TXT_FILE" "$JS_FILE" && sed -i '/content_to_insert/d' "$JS_FILE"
+
+rm "$TMP_FILE"
+
+echo "Modification effectuée avec succès."
+
+# supprimer le fichier texte généré
+rm -fv $output_file
