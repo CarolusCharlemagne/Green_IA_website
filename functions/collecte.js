@@ -108,12 +108,19 @@ const donneesCollecte = [
         service_tri_selectif: "1 samedi / 2"
     },
     {
-        nom_ville: "VENTABREN",
-        code_postal: 13122,
-        service_ordures_menageres: "Mardi et Vendredi",
-        service_tri_selectif: "1 jeudi / 2"
+        nom_ville: "AIX EN PROVENCE",
+        code_postal: 13090,
+        service_ordures_menageres: "Lundi au samedi entre 18h45 et 19h00",
+        service_tri_selectif: "Points de collectes h24 7/7"
+    },
+    {
+        nom_ville: "AIX EN PROVENCE",
+        code_postal: 13100,
+        service_ordures_menageres: "Lundi au samedi entre 18h45 et 19h00",
+        service_tri_selectif: "Points de collectes h24 7/7"
     }
 ];
+
 // FIN 
 
 function afficherDonneesCollecteSurCarte(lat, lon, resultat) {
